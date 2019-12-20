@@ -19,6 +19,8 @@ public class Equipment {
     private boolean assigned;
     @Column()
     private Long userId;
+    @Column()
+    private String comment;
 
     public Long getEquipmentId() {
         return equipmentId;
@@ -60,6 +62,14 @@ public class Equipment {
         this.userId = userId;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,12 +79,13 @@ public class Equipment {
                 Objects.equals(equipmentId, equipment.equipmentId) &&
                 Objects.equals(equipmentType, equipment.equipmentType) &&
                 Objects.equals(officeId, equipment.officeId) &&
-                Objects.equals(userId, equipment.userId);
+                Objects.equals(userId, equipment.userId) &&
+                Objects.equals(comment, equipment.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(equipmentId, equipmentType, officeId, assigned, userId);
+        return Objects.hash(equipmentId, equipmentType, officeId, assigned, userId, comment);
     }
 
     @Override
@@ -85,6 +96,7 @@ public class Equipment {
                 ", officeId=" + officeId +
                 ", assigned=" + assigned +
                 ", userId=" + userId +
+                ", comment='" + comment + '\'' +
                 '}';
     }
 }
