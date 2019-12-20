@@ -42,7 +42,9 @@ public class FemControllerTest {
         office.setOfficeName("Cognizant");
         office.setStreetAddress("Broad Ave");
         office.setCity("Teaneck");
+        office.setState("NJ");
         office.setZip("07777");
+        office.setCountry("United States")
         officeList.add(office);
         Mockito.when(serviceLayer.getAllOffice()).thenReturn(officeList);
         String outputJson = mapper.writeValueAsString(officeList);
@@ -64,14 +66,19 @@ public class FemControllerTest {
         office.setOfficeName("Cognizant");
         office.setStreetAddress("Broad Ave");
         office.setCity("Teaneck");
+        office.setState("NJ");
         office.setZip("07777");
+        office.setCountry("United States");
         String inputJson = mapper.writeValueAsString(office);
         Office office2 = new Office();
         office2.setOfficeId(1l);
         office2.setOfficeName("Cognizant");
         office2.setStreetAddress("Broad Ave");
         office2.setCity("Teaneck");
+        office.setState("NJ");
         office2.setZip("07777");
+        office2.setCountry("United States")
+
         String outputJson = mapper.writeValueAsString(office2);
         Mockito.when(serviceLayer.createOffice(office)).thenReturn(office2);
 
@@ -91,7 +98,9 @@ public class FemControllerTest {
         office.setOfficeName("Cognizant");
         office.setStreetAddress("Broad Ave");
         office.setCity("Teaneck");
+        office.setState("NJ");
         office.setZip("07777");
+        office.setCountry("United States");
         String inputJson = mapper.writeValueAsString(office);
 
         accessToken = helper.getAccessToken("admin", "admin");
@@ -112,7 +121,9 @@ public class FemControllerTest {
         office.setOfficeName("Cognizant");
         office.setStreetAddress("Broad Ave");
         office.setCity("Teaneck");
+        office.setState("NJ");
         office.setZip("07777");
+        office.setCountry("United States");
         String inputJson = mapper.writeValueAsString(office);
 
         accessToken = helper.getAccessToken("admin", "admin");
