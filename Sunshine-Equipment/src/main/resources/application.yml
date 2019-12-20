@@ -1,0 +1,52 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:~/test2;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+security:
+  oauth2:
+    resource:
+      user-info-uri:  https://sunshine-auth-service.cfapps.io/user/me
+---
+spring:
+  profiles: local, default
+server:
+  port: 7877
+logging:
+  level:
+    org:
+      springframework: DEBUG
+eureka:
+  client:
+    enabled: true
+---
+spring:
+  profiles: cloud
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  cloud:
+    config:
+      discovery:
+        enabled: false
+        serviceId: sunshine-config-server
+eureka:
+  instance:
+    nonSecurePort: 80
+    hostname: ${vcap.application.uris[0]}
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.tj-eureka-server.credentials.url}
+    enabled: true
