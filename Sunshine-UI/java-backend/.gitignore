@@ -1,0 +1,124 @@
+# Gradle
+# ------
+.gradle
+/build
+/buildSrc/build
+/buildSrc/subprojects/*/build
+/subprojects/*/build
+/subprojects/docs/src/samples/**/build
+/subprojects/internal-android-performance-testing/build-android-libs
+# IDEA
+# ----
+!/.idea
+/.idea/*
+!/.idea/codeStyles
+!/.idea/inspectionProfiles
+*/**/.idea
+.shelf
+/*.iml
+/*.ipr
+/*.iws
+/buildSrc/.idea
+/buildSrc/.shelf
+/buildSrc/*.iml
+/buildSrc/*.ipr
+/buildSrc/*.iws
+/buildSrc/out
+/buildSrc/subprojects/*/*.iml
+/buildSrc/subprojects/*/out
+/out
+/subprojects/*/*.iml
+/subprojects/*/out
+/.teamcity/*.iml
+/.teamcity/target
+# Eclipse
+# -------
+*.classpath
+*.project
+*.settings
+/bin
+/subprojects/*/bin
+atlassian-ide-plugin.xml
+.metadata/
+# NetBeans
+# --------
+.nb-gradle
+.nb-gradle-properties
+# Vim
+# ---
+*.sw[nop]
+# Emacs
+# -----
+*~
+\#*\#
+.\#*
+# Textmate
+# --------
+.textmate
+# Sublime Text
+# ------------
+*.sublime-*
+# jEnv
+# ----
+.java-version
+# macOS
+# ----
+.DS_Store
+# HPROF
+# -----
+*.hprof
+# Work dirs
+# ---------
+/incoming-distributions
+/intTestHomeDir
+# Logs
+# ----
+/*.log
+# oh-my-zsh gradle plugin
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+build
+# compiled output
+/dist
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
+
+# dependencies
+/node_modules
+
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db

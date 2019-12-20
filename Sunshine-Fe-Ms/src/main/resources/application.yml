@@ -1,0 +1,20 @@
+---
+spring:
+  profiles: local, default
+eureka:
+  client:
+    enabled: false
+logging:
+  level:
+    org:
+      springframework: DEBUG
+#
+#zuul:
+#  routes:
+security:
+  oauth2:
+    resource:
+      user-info-uri:  https://sunshine-auth-service.cfapps.io/user/me
+---
+spring:
+  profiles: cloud

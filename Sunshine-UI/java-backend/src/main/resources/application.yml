@@ -1,0 +1,88 @@
+spring:
+  application:
+    name: angular-frontend
+---
+spring:
+  profiles: cloud
+
+
+eureka:
+  instance:
+    nonSecurePort: 80
+    hostname: ${vcap.application.uris[0]}
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.tj-eureka.credentials.url}
+    enabled: true
+      
+zuul:
+  routes:
+    oauth:
+      path: /oauth/**
+      serviceId: tj-auth-server
+      stripPrefix: false
+      ignoredHeaders:
+      sensitiveHeaders:
+    offices:
+      path: /api/offices/**
+      stripPrefix: false
+      serviceId: tj-fe-ms
+      sensitiveHeaders:
+      ignoredHeaders:
+---
+spring:
+  profiles: local, default
+
+server:
+  port: 8080
+
+ribbon:
+  eureka:
+    enabled: false
+
+eureka:
+  client:
+    enabled: false
+      
+zuul:
+  routes:
+    oauth:
+      path: /oauth/**
+#      serviceId: tj-auth-server - disable url and enable this once eureka is on
+      url: https://sunshine-auth-service.cfapps.io
+      stripPrefix: false
+      ignoredHeaders:
+      sensitiveHeaders:
+    offices:
+      path: /api/offices/**
+      stripPrefix: false
+#     serviceId: tj-fe-ms
+      url: https://sunshine-fe-ms.cfapps.io
+      sensitiveHeaders:
+      ignoredHeaders:
+      
+logging:
+  level:
+    org.springframework.cloud: DEBUG
+
+
+---
+spring:
+  profiles: test
+
+ribbon:
+  eureka:
+    enabled: false
+
+eureka:
+  client:
+    enabled: false
+
+zuul:
+  routes:
+    oauth:
+      path: /oauth/**
+      sensitiveHeaders:
+      ignoredHeaders:
+      stripPrefix: false
+      url: https://tj-auth-service.cfapps.io/

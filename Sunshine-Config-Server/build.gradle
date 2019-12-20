@@ -1,0 +1,58 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.8.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+}
+
+group = 'com.cognizant'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "Greenwich.SR3")
+}
+
+dependencies {
+	compile "org.springframework.boot:spring-boot-gradle-plugin:2.1.9.RELEASE"
+	compile('org.springframework.cloud:spring-cloud-starter-config')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	implementation 'org.springframework.cloud:spring-cloud-config-server'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Greenwich.SR3"
+	}
+}
+
+
+bootJar {
+	baseName = rootProject.name
+	version = "$project.version"
+}
+
+//cfConfig {
+//	ccHost = "api.run.pivotal.io"
+//	ccUser = project.getProperty('CF_USR')
+//	ccPassword = project.getProperty('CF_PSW')
+//	org = "cognizantlabs"
+//	space = project.getProperty('CF_SPACE')
+//	name = project.getProperty('instanceName')
+//	filePath = "build/libs/" + bootJar.archiveName
+//	path = ""
+//	routes = [project.getProperty('instanceName') + ".cfapps.io"]
+//	//config
+//
+//	cfUserProvidedService {
+//		instanceName = project.getProperty('PODNAME') + "-eureka-server"
+//		credentials = ["url":"https://" + "$instanceName" + ".cfapps.io/eureka"]
+//	}
+//
+//
+//}
+//"cf-push" { dependsOn "bootJar"}

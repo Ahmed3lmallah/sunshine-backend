@@ -1,0 +1,30 @@
+/*
+  We need the java plugin to have the jar task available and the com.moowork.node plugin
+  to execute node scripts like npm_run_build.
+ */
+plugins {
+  id 'java'
+  id "com.moowork.node" version "1.2.0"
+}
+
+// We have to specify which node and NPM version we want to use.
+node {
+  version = '11.4.0'
+  npmVersion = '6.4.1'
+  download = true
+}
+
+/*
+Before creating the jar with the jar task we want to build our Angular project, otherwise we don’t have any static
+files to serve. This can be done by using the npm_run_build task.
+ */
+jar.dependsOn 'npm_run_build'
+
+/*
+When we build the Angular project our static files will become available in dist/angular-frontend We want those
+files into static. The from 'dist/angular-frontend into 'static' command in the jar task will simply
+copy everything from dist/angular-frontend  into static
+ */
+jar {
+  from 'dist' into 'static'
+}

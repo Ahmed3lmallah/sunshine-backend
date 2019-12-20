@@ -1,0 +1,26 @@
+plugins {
+    id "com.github.pivotalservices.cf-app" version "2.3.0-rc.6"
+}
+
+allprojects {
+    group = 'com.team-jacob-ui'
+    version = '0.0.1-SNAPSHOT'
+}
+
+cfConfig {
+    ccHost = project.getProperty(project.getProperty('ENV') + '.CCHostName')
+    ccUser = project.getProperty('CF_USR')
+    ccPassword = project.getProperty('CF_PSW')
+    org = project.getProperty(project.getProperty('ENV') + '.CCOrg')
+    space = project.getProperty(project.getProperty('ENV') + '.CCSpace')
+    name = project.getProperty(project.getProperty('ENV') + '.AppName')
+    filePath = "java-backend/build/libs/java-backend-0.0.1-SNAPSHOT.jar"
+    path = ""
+    //config
+    instances = 1
+    memory = 1024
+    timeout = 180
+    routes = [project.getProperty(project.getProperty('ENV') + '.CCRoutes')]
+    def profiles = project.getProperty('ENV').toLowerCase() + ",cloud"
+    environment = ["SPRING_PROFILES_ACTIVE": profiles]
+}

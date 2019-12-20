@@ -1,0 +1,36 @@
+spring:
+  profiles: local, default
+server:
+  port: 8083
+security:
+  oauth2:
+    authorization:
+      checkTokenAccess: isAuthenticated()
+      jwt:
+        keyValue: somereallyreallylongsigningkey
+    client:
+      client-id: ClientId
+      client-secret: ClientSecret
+      scope: all
+    resource:
+      user-info-uri: http://localhost:8083/user/me
+
+logging:
+  level:
+    org:
+      springframework: DEBUG
+---
+spring:
+  profiles: cloud
+
+security:
+  oauth2:
+    authorization:
+      jwt:
+        keyValue: gMGl40z3aicb8exeFsuSJ6Jxq7FKjlfQ
+    client:
+      client-id: ClientId
+      client-secret: ClientSecret
+      scope: all
+    resource:
+      user-info-uri: https://sunshine-auth-service.cfapps.io/user/me

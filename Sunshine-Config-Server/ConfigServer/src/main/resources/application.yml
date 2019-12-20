@@ -1,0 +1,27 @@
+spring:
+  profiles: local
+server:
+  port: 9000
+eureka:
+  client:
+    enabled: false
+---
+spring:
+  profile: cloud, default
+  cloud:
+    config:
+      server:
+        git:
+          uri: https:///git.unreleased.work/tj-config-server/ConfigServer.git
+          searchPaths: 'configurations/{application}/{profile}'
+          username: robot
+          password: 'ilove2code'
+
+#eureka:
+#  instance:
+#    hostname: ${vcap.application.uris[0]}
+#    nonSecurePort: 80
+#  client:
+#    service-url:
+#      defaultZone: ${vcap.services.Podzilla-eureka-server.credentials.url}
+#    enabled: true

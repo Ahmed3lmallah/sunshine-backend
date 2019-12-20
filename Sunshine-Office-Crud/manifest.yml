@@ -1,0 +1,6 @@
+applications:
+  - name: sunshine-office-crud
+    path: build/libs/office-crud-0.0.1-SNAPSHOT.jar
+    space: curriculum-development
+    service:
+      - tj-eureka-server

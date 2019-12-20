@@ -1,0 +1,30 @@
+spring:
+  profiles: local
+server:
+  port: 9000
+eureka:
+  client:
+    enabled: false
+---
+spring:
+  profile: cloud, default
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://git.work.cognizant.studio/remote-enablement-trilogy/team-jacob/tj-configurations.git
+          searchPaths: '{application}/{profile}'
+          username: robot
+          password: 'ilove2code'
+
+eureka:
+  instance:
+    nonSecurePort: 80
+    hostname: ${vcap.application.uris[0]}
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.tj-eureka-server.credentials.url}
+    enabled: true
+
+    #This is the encrypted version: May add it
+    #{cipher}$2a$10$wImd0z0DoEMwEb.uxAWhNutjpKuCXntxvzrhSNvONO0HGyRatPWBa

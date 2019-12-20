@@ -1,0 +1,8 @@
+#---
+#applications:
+#  - name: Podzilla-config-server
+#    instances: 1
+#    env:
+#      SPRING_PROFILES_ACTIVE: cloud
+#    services:
+#      - Podzilla-eureka-server

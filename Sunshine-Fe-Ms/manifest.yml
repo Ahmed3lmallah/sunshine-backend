@@ -1,0 +1,6 @@
+applications:
+  - name: sunshine-fe-ms
+    path: build/libs/tj-fe-ms-0.0.1-SNAPSHOT.jar
+    space: curriculum-development
+    service:
+      - tj-eureka-server

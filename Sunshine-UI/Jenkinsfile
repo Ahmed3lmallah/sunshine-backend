@@ -1,0 +1,103 @@
+updateGitlabCommitStatus state: 'pending'
+
+pipeline {
+  agent any
+  options {
+    gitLabConnection('gitlab')
+  }
+
+  environment {
+    CF = credentials('pws-credentials')
+  }
+
+  stages {
+     stage('check-for-rebase-before') {
+       when {
+         expression {
+           return !env.gitlabBranch.equals('develop')
+         }
+       }
+       steps {
+         script {
+           try {
+             updateGitlabCommitStatus name: 'check-for-rebase', state: 'success'
+           } catch (exc) {
+             // this is so we can capture the results in 'finally' below
+             updateGitlabCommitStatus name: 'check-for-rebase', state: 'failed'
+             throw exec
+           }
+         }
+       }
+     }
+
+    stage('unit-test') {
+      steps {
+        script {
+          sh """
+            ./gradlew test
+          """
+          updateGitlabCommitStatus name: 'unit test', state: 'success'
+        }
+      }
+    }
+
+    stage('accept merge request') {
+      when {
+        expression {
+          return !env.gitlabBranch.equals('develop')
+        }
+      }
+      steps {
+        script {
+          acceptGitLabMR()
+          updateGitlabCommitStatus name: 'accept merge request', state: 'success'
+        }
+      }
+    }
+    stage('build-jar') {
+      when {
+        expression {
+          return env.gitlabBranch.equals('develop')
+        }
+      }
+      steps {
+        script {
+          sh '''
+            ./gradlew bootJar
+          '''
+          updateGitlabCommitStatus name: 'Build jar', state: 'success'
+        }
+      }
+    }
+    
+
+    // stage('cf-push-develop') {
+    //    when {
+    //       expression {
+    //          return env.gitlabBranch.equals('develop')
+    //       }
+    //    }
+    //    steps {
+    //       script {
+    //         sh '''
+    //           cd java-backend
+    //           ./gradlew cf-push -PCF_USR=$CF_USR -PCF_PSW=$CF_PSW
+    //         '''
+    //       }
+    //    } 
+    // }
+  }
+
+  post {
+    always {
+      deleteDir()
+    }
+    success {
+      updateGitlabCommitStatus state: 'success'
+    }
+    failure {
+      updateGitlabCommitStatus state: 'failed'
+    }
+  }
+
+}
