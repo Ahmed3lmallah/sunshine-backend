@@ -1,9 +1,12 @@
 package config;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+
+import java.util.*;
 
 public class CustomAuthoritiesExtractor implements AuthoritiesExtractor {
-    @Override
     @Override
     public List<GrantedAuthority> extractAuthorities (Map<String, Object> map) {
         return AuthorityUtils
