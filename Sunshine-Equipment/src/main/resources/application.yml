@@ -21,7 +21,7 @@ security:
 spring:
   profiles: local, default
 server:
-  port: 7877
+  port: 9977
 logging:
   level:
     org:
@@ -49,4 +49,4 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${vcap.services.tj-eureka-server.credentials.url}
-    enabled: true
+    enabled: false
