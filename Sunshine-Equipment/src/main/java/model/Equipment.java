@@ -15,7 +15,7 @@ public class Equipment {
     private String equipmentType;
     @Column(nullable = false)
     private Long officeId;
-    @Column()
+    @Column(nullable = false)
     private boolean assigned;
     @Column()
     private Long userId;
