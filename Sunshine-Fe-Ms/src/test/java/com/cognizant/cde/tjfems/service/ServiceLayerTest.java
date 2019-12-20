@@ -30,7 +30,9 @@ public class ServiceLayerTest {
         officeBeingReturned.setOfficeName("Cognizant");
         officeBeingReturned.setStreetAddress("Broad Ave");
         officeBeingReturned.setCity("Teaneck");
+        officeBeingReturned.setState("NJ");
         officeBeingReturned.setZip("07777");
+        officeBeingReturned.setCountry("United States")
 
         officeList.add(officeBeingReturned);
 
@@ -38,8 +40,9 @@ public class ServiceLayerTest {
         officeInput.setOfficeName("Cognizant");
         officeInput.setStreetAddress("Broad Ave");
         officeInput.setCity("Teaneck");
+        officeInput.setState("NJ");
         officeInput.setZip("07777");
-
+        officeInput.setCountry("United States");
         Mockito.when(officeCrudClient.createOffice(officeInput)).thenReturn(officeBeingReturned);
         Mockito.when(officeCrudClient.getAllOffices()).thenReturn(officeList);
         Mockito.when(officeCrudClient.getOfficeById(1l)).thenReturn(officeBeingReturned);
@@ -51,7 +54,9 @@ public class ServiceLayerTest {
         office.setOfficeName("Cognizant");
         office.setStreetAddress("Broad Ave");
         office.setCity("Teaneck");
+        office.setState("NJ");
         office.setZip("07777");
+        office.setCountry("United States");
 
         office = serviceLayer.createOffice(office);
 
@@ -66,8 +71,9 @@ public class ServiceLayerTest {
         office.setOfficeName("Cognizant");
         office.setStreetAddress("Broad Ave");
         office.setCity("Teaneck");
+        office.setState("NJ");
         office.setZip("07777");
-
+        office.setCountry("United States");
         List<Office> officeList = new ArrayList<>();
         officeList.add(office);
 
