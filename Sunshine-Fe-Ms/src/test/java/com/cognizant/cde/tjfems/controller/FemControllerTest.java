@@ -77,7 +77,7 @@ public class FemControllerTest {
         office2.setCity("Teaneck");
         office.setState("NJ");
         office2.setZip("07777");
-        office2.setCountry("United States")
+        office2.setCountry("United States");
 
         String outputJson = mapper.writeValueAsString(office2);
         Mockito.when(serviceLayer.createOffice(office)).thenReturn(office2);

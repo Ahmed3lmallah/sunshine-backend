@@ -99,7 +99,7 @@ public class Office implements Serializable {
                 Objects.equals(getStreetAddress(), office.getStreetAddress()) &&
                 Objects.equals(getCity(), office.getCity()) &&
                 Objects.equals(getState(), office.getState()) &&
-                Objects.equals(getZip(), office.getZip())
+                Objects.equals(getZip(), office.getZip()) &&
                 Objects.equals(getCountry(), office.getCountry());
     }
 
