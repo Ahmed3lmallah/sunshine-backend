@@ -18,7 +18,11 @@ public class Office {
     @Column(nullable = false)
     private String city;
     @Column(nullable = false)
+    private String state;
+    @Column(nullable = false)
     private String zip;
+    @Column(nullable = false)
+    private String country;
     @Column (columnDefinition="tinyint(1) default 1")
     private boolean active = true;
 
@@ -54,12 +58,28 @@ public class Office {
         this.city = city;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public String getZip() {
         return zip;
     }
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public boolean isActive() {
@@ -80,12 +100,14 @@ public class Office {
                 Objects.equals(getOfficeName(), office.getOfficeName()) &&
                 Objects.equals(getStreetAddress(), office.getStreetAddress()) &&
                 Objects.equals(getCity(), office.getCity()) &&
-                Objects.equals(getZip(), office.getZip());
+                Objects.equals(getState(), office.getState()) &&
+                Objects.equals(getZip(), office.getZip()) &&
+                Objects.equals(getCountry(), office.getCountry());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOfficeId(), getOfficeName(), getStreetAddress(), getCity(), getZip(), isActive());
+        return Objects.hash(getOfficeId(), getOfficeName(), getStreetAddress(), getCity(), getState(), getZip(), getCountry(), isActive());
     }
 
     @Override
@@ -95,7 +117,9 @@ public class Office {
                 ", officeName='" + officeName + '\'' +
                 ", streetAddress='" + streetAddress + '\'' +
                 ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
                 ", zip='" + zip + '\'' +
+                ", country='" + country + '\'' +
                 ", active=" + active +
                 '}';
     }
