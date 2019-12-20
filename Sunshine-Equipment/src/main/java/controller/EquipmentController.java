@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import repository.EquipmentRepository;
+import service.EquipmentService;
 
 import java.util.List;
 
@@ -40,6 +41,6 @@ public class EquipmentController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteEquipment(@PathVariable(name = "id") Long id) {
-        return equipmentService.deleteEquipmentById(id);
+        return equipmentService.equipmentDeleteById(id);
     }
 }

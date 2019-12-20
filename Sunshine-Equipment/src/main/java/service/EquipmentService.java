@@ -9,5 +9,8 @@ import repository.EquipmentRepository;
 public class EquipmentService {
     @Autowired
     EquipmentRepository equipmentRepository;
-
+    public String equipmentDeleteById (Long id) {
+        equipmentRepository.deleteById(id);
+        return "Equipment: " + id + " deleted";
+    }
 }
