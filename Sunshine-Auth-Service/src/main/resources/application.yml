@@ -1,24 +1,47 @@
 spring:
-  profiles: local, default
-server:
-  port: 8083
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  main:
+    allow-bean-definition-overriding: true
+
 security:
   oauth2:
     authorization:
       checkTokenAccess: isAuthenticated()
+---
+spring:
+  profiles: local, test, default
+
+server:
+  port: 8083
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+eureka:
+  client:
+    enabled: false
+
+security:
+  oauth2:
+    authorization:
       jwt:
         keyValue: somereallyreallylongsigningkey
     client:
       client-id: ClientId
       client-secret: ClientSecret
       scope: all
+      access-token-validity-seconds: 86400
     resource:
       user-info-uri: http://localhost:8083/user/me
-
-logging:
-  level:
-    org:
-      springframework: DEBUG
 ---
 spring:
   profiles: cloud
@@ -32,5 +55,26 @@ security:
       client-id: ClientId
       client-secret: ClientSecret
       scope: all
+      access-token-validity-seconds: 86400
     resource:
       user-info-uri: https://sunshine-auth-service.cfapps.io/user/me
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  cloud:
+    config:
+      discovery:
+        enabled: false
+        serviceId: sunshine-config-server
+
+eureka:
+  instance:
+    nonSecurePort: 80
+    hostname: ${vcap.application.uris[0]}
+  client:
+    serviceUrl:
+      defaultZone: https://sunshine-eureka.cfapps.io/eureka
+    enabled: true

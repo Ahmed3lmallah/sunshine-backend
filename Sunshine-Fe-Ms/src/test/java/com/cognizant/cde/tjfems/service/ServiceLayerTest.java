@@ -32,7 +32,7 @@ public class ServiceLayerTest {
         officeBeingReturned.setCity("Teaneck");
         officeBeingReturned.setState("NJ");
         officeBeingReturned.setZip("07777");
-        officeBeingReturned.setCountry("United States")
+        officeBeingReturned.setCountry("United States");
 
         officeList.add(officeBeingReturned);
 
