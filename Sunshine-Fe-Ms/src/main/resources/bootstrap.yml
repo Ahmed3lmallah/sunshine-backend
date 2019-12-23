@@ -1,40 +1,9 @@
 spring:
   application:
     name: sunshine-fe-ms
-#  cloud:
-#    config:
-#      uri: https://tj-config-server-new.cfapps.io/
----
-spring:
-  profiles: itest, local, default
-server:
-  port: 7979
-#eureka:
-#  client:
-#    enabled: false
 ---
 spring:
   profiles: cloud
   cloud:
     config:
       uri: https://sunshine-config-server.cfapps.io/
-#  cloud:
-#    config:
-#      discovery:
-#        enabled: true
-#        serviceId: tj-config-server-new
-#      auth:
-#        uri: https://office-owls-auth-server.cfapps.io/
-#        client-id: cognizant
-#        secret: Np56LBgXiR7vz7UrpscN8XHlrGGRu0IW
-#        grant-type: password
-#        scope: read
-#eureka:
-#  instance:
-#    nonSecurePort: 80
-#    hostname: ${vcap.application.uris[0]}
-#  client:
-#    serviceUrl:
-#      defaultZone: ${vcap.services.tj-eureka-service.credentials.url}
-#    enabled: true
-#    #https://tj-eureka.cfapps.io/

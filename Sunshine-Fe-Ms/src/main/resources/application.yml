@@ -1,16 +1,19 @@
 ---
 spring:
   profiles: local, default
+
+server:
+  port: 7979
+
 eureka:
   client:
     enabled: false
+
 logging:
   level:
     org:
       springframework: DEBUG
-#
-#zuul:
-#  routes:
+
 security:
   oauth2:
     resource:
