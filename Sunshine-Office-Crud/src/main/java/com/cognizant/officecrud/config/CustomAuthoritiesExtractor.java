@@ -9,7 +9,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-// This file is only needed if custom principle is used.
 public class CustomAuthoritiesExtractor implements AuthoritiesExtractor {
 
     @Override
@@ -24,7 +23,7 @@ public class CustomAuthoritiesExtractor implements AuthoritiesExtractor {
                 (List<LinkedHashMap<String, String>>) map.get("roles");
 
         for (LinkedHashMap<String, String> entry : authz) {
-            authorities.add("ROLE_"+entry.get("name"));
+            authorities.add(entry.get("name"));
         }
         return String.join(",", authorities);
     }
