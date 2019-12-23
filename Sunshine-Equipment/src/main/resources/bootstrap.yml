@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: sunshine-equipment-crud
+---
+spring:
+  profiles: cloud
+  cloud:
+    config:
+      uri: https://sunshine-config-server.cfapps.io/
+
+
+
+
+
+
+
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        serviceId: tj-config-server-new
+
+#These properties will be in the tj-configurations
+#eureka:
+#  instance:
+#    nonSecurePort: 80
+#    hostname: ${vcap.application.uris[0]}
+#  client:
+#    serviceUrl:
+#      defaultZone: ${vcap.services.tj-eureka-service.credentials.url}
+#    enabled: true
+#    #https://tj-eureka.cfapps.io/
