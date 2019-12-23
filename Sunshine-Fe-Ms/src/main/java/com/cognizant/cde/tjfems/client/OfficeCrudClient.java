@@ -10,18 +10,18 @@ import java.util.List;
 public interface OfficeCrudClient {
 
     @PostMapping("/offices")
-    public Office createOffice(@RequestBody Office office);
+    Office createOffice(@RequestBody Office office);
 
     @GetMapping("/offices")
-    public List<Office> getAllOffices();
+    List<Office> getAllOffices();
 
     @RequestMapping(value="/offices/office/{id}",  method = RequestMethod.GET)
-    public Office getOfficeById(@PathVariable(name = "id") Long id);
+    Office getOfficeById(@PathVariable(name = "id") Long id);
 
     @RequestMapping(value="/offices/office/{id}",  method = RequestMethod.PUT)
-    public Office updateOffice(@RequestBody Office office, @PathVariable(name = "id") Long id);
+    Office updateOffice(@RequestBody Office office, @PathVariable(name = "id") Long id);
 
     @RequestMapping(value="/offices/office/{id}",  method = RequestMethod.DELETE)
-    public String deleteOffice(@PathVariable(name = "id") Long id);
+    String deleteOffice(@PathVariable(name = "id") Long id);
 
 }

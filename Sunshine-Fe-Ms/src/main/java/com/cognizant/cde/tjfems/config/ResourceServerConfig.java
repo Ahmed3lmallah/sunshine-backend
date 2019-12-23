@@ -10,12 +10,17 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                // Protected Office Crud Endpoints
                 .antMatchers(HttpMethod.POST,"/api/offices").hasAuthority("ROLE_ADMIN")
                 .antMatchers(HttpMethod.PUT,"/api/offices/{id}").hasAuthority("ROLE_ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/api/offices/{id}").hasAuthority("ROLE_ADMIN")
                 .antMatchers(HttpMethod.GET,"/api/offices/manager").hasAuthority("ROLE_MANAGER")
-//                .antMatchers(HttpMethod.GET,"/api/offices/{id}").authenticated()
-//                .antMatchers(HttpMethod.GET,"/api/offices").authenticated()
+                // Protected User Crud Endpoints
+                .antMatchers("/users/register").permitAll()
+                .antMatchers(HttpMethod.POST,"/users").hasAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/users/{username}").hasAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.PUT, "/users/{username}").hasAuthority("ROLE_ADMIN")
+                // All Others
                 .anyRequest().authenticated();
     }
 }

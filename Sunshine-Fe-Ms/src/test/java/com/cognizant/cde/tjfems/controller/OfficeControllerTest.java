@@ -22,14 +22,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class FemControllerTest {
+public class OfficeControllerTest {
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
     @MockBean
-    ServiceLayer serviceLayer;
+    private ServiceLayer serviceLayer;
+
     private String accessToken;
     private OauthHelper helper = new OauthHelper();
     private ObjectMapper mapper = new ObjectMapper();
+
     @Test
     public void givenNoToken_whenGetSecureRequest_thenUnauthorized() throws Exception {
         mockMvc.perform(get("/api/offices"))

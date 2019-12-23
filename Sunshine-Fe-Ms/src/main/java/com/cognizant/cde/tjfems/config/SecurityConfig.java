@@ -11,11 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableOAuth2Sso
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-// Only needed while using custom Principle
-//    @Bean
-//    public AuthoritiesExtractor customAuthoritiesExtractor() {
-//        return new CustomAuthoritiesExtractor();
-//    }
+    @Bean
+    public AuthoritiesExtractor customAuthoritiesExtractor() {
+        return new CustomAuthoritiesExtractor();
+    }
 
     @Bean
     public RequestInterceptor requestTokenBearerInterceptor() {

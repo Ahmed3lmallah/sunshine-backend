@@ -12,10 +12,10 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/offices")
-public class FemController {
+public class OfficeController {
 
     @Autowired
-    ServiceLayer serviceLayer;
+    private ServiceLayer serviceLayer;
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
