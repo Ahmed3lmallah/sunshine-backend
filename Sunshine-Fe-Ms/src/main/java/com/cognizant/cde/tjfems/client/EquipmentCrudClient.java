@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name="sunshine-equipment-crud", url="https://sunshine-equipment-crud.cfapps.io/")
+@FeignClient(name="sunshine-equipment-crud") //url="https://sunshine-equipment-crud.cfapps.io/"
 public interface EquipmentCrudClient {
     @GetMapping("/equipment")
     List<Equipment> getAllEquipment();

@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1f07c6fa-f0bd-4504-96e2-0eb7dce160a2" name="Default Changelist" comment="" />
+    <list default="true" id="1f07c6fa-f0bd-4504-96e2-0eb7dce160a2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileContent/fileContent.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/config/CustomAuthoritiesExtractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/config/CustomAuthoritiesExtractor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/controller/EquipmentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/controller/EquipmentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/model/Equipment.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/model/Equipment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/repository/EquipmentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/repository/EquipmentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/service/EquipmentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/cognizant/equipmentcrud/service/EquipmentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/config/CustomAuthoritiesExtractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/config/CustomAuthoritiesExtractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/config/ResourceServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/config/ResourceServerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/controller/EquipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/controller/EquipmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/repository/EquipmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/repository/EquipmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/service/EquipmentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cognizant/equipmentcrud/service/EquipmentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Fe-Ms/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Fe-Ms/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/client/EquipmentCrudClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/client/EquipmentCrudClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/config/SimpleCorsFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/config/SimpleCorsFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/controller/EquipmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/controller/EquipmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/model/Equipment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/model/Equipment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/model/Office.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/model/Office.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/repository/EquipmentToOfficeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/java/com/cognizant/cde/tjfems/repository/EquipmentToOfficeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Fe-Ms/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Office-Crud/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Office-Crud/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Office-Crud/src/main/java/com/cognizant/officecrud/model/Office.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Office-Crud/src/main/java/com/cognizant/officecrud/model/Office.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Office-Crud/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Sunshine-Office-Crud/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Sunshine-Office-Crud/src/main/resources/data.sql" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,12 +81,16 @@
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java" />
     </key>

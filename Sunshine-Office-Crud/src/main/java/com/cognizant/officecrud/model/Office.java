@@ -17,11 +17,13 @@ public class Office {
     private String streetAddress;
     @Column(nullable = false)
     private String city;
-    @Column(nullable = false)
+//    @Column(nullable = false)
+    @Column()
     private String state;
     @Column(nullable = false)
     private String zip;
-    @Column(nullable = false)
+//    @Column(nullable = false)
+    @Column()
     private String country;
     @Column (columnDefinition="tinyint(1) default 1")
     private boolean active = true;

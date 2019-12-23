@@ -32,6 +32,11 @@ public class EquipmentController {
         return equipmentRepository.findAll();
     }
 
+    @RequestMapping(value = "/office/{id}", method = RequestMethod.GET)
+    public List<Equipment> getEquipmentByOfficeId(@PathVariable(name = "id") Long id) {
+        return equipmentRepository.getEquipmentByOfficeId(id);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Equipment getEquipmentById(@PathVariable(name = "id") Long id) {
         return equipmentRepository.findById(id).orElse(new Equipment());

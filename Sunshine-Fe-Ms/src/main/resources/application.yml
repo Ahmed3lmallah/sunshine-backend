@@ -7,7 +7,7 @@ server:
 
 eureka:
   client:
-    enabled: false
+    enabled: true
 
 logging:
   level:
@@ -21,3 +21,11 @@ security:
 ---
 spring:
   profiles: cloud
+eureka:
+  instance:
+    nonSecurePort: 80
+    hostname: ${vcap.application.uris[0]}
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.sunshine-eureka-server.credentials.url}
+    enabled: true

@@ -27,6 +27,11 @@ public class EquipmentController {
         return equipmentCrudClient.getEquipmentByEquipmentId(equipmentId);
     }
 
+    @GetMapping("/office/{officeId}")
+    public List<Equipment> getEquipmentByOfficeId(@PathVariable(name = "officeId") Long officeId){
+        return equipmentCrudClient.getAllEquipmentByOfficeId(officeId);
+    }
+
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public Equipment publicRegister(@RequestBody Equipment equipment) {
