@@ -32,6 +32,11 @@ public class OfficeController {
         return officeRepository.findAll();
     }
 
+    @GetMapping("/manager/{managerId}")
+    public List<Office> getOfficesByManagerId(@PathVariable Long managerId) {
+        return officeRepository.findOfficeByManagerId(managerId);
+    }
+
     @RequestMapping(value="/office/{id}",  method = RequestMethod.GET)
     public Office getOfficeById(@PathVariable(name = "id") Long id) {
         return officeRepository.findById(id).orElse(new Office());

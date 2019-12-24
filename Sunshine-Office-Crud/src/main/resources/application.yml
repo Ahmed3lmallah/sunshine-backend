@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:file:~/test2;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+    url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
     username: sa
-    password:
+    password: password
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
@@ -21,14 +21,14 @@ security:
 spring:
   profiles: local, default
 server:
-  port: 7878
+  port: 7575
 logging:
   level:
     org:
       springframework: DEBUG
 eureka:
   client:
-    enabled: true
+    enabled: false
 ---
 spring:
   profiles: cloud

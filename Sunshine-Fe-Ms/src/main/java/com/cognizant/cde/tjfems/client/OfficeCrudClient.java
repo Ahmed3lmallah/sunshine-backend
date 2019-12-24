@@ -15,6 +15,9 @@ public interface OfficeCrudClient {
     @GetMapping("/offices")
     List<Office> getAllOffices();
 
+    @GetMapping("/offices/manager/{managerId}")
+    public List<Office> getOfficesByManagerId(@PathVariable(name = "managerId") Long managerId);
+
     @RequestMapping(value="/offices/office/{id}",  method = RequestMethod.GET)
     Office getOfficeById(@PathVariable(name = "id") Long id);
 

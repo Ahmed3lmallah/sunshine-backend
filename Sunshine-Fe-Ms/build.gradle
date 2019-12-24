@@ -4,9 +4,9 @@ buildscript {
 			url 'https://repository.unreleased.work/repository/maven-releases'
 		}
 	}
-	dependencies {
-		classpath 'com.cognizant.cde:gitlab-merge-gradle-plugin:1.0.0'
-	}
+//	dependencies {
+//		classpath 'com.cognizant.cde:gitlab-merge-gradle-plugin:1.0.0'
+//	}
 }
 plugins {
 	id 'org.springframework.boot' version '2.1.8.RELEASE'
@@ -22,7 +22,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'jacoco'
 apply plugin: 'org.sonarqube'
-apply plugin: com.cognizant.cde.GitlabMergeVerificationPlugin
+//apply plugin: com.cognizant.cde.GitlabMergeVerificationPlugin
 apply plugin: 'idea'
 
 group = 'com.cognizant.cde'
@@ -60,21 +60,21 @@ dependencyManagement {
 	}
 }
 
-cfConfig {
-	ccHost = project.getProperty(project.getProperty('ENV') + '.CCHostName')
-	ccUser = project.getProperty('CF_USR')
-	ccPassword = project.getProperty('CF_PSW')
-	org = project.getProperty(project.getProperty('ENV') + '.CCOrg')
-	space = project.getProperty(project.getProperty('ENV') + '.CCSpace')
-	name = project.getProperty(project.getProperty('ENV') + '.AppName')
-	filePath = "build/libs/tj-fe-ms-0.0.1-SNAPSHOT.jar"
-	path = ""
-	//config
-	instances = 1
-	memory = 1024
-	timeout = 180
-	routes = [project.getProperty(project.getProperty('ENV') + '.CCRoutes')]
-	def profiles = project.getProperty('ENV').toLowerCase() + ",cloud"
-	environment = ["SPRING_PROFILES_ACTIVE": profiles]
-}
+//cfConfig {
+//	ccHost = project.getProperty(project.getProperty('ENV') + '.CCHostName')
+//	ccUser = project.getProperty('CF_USR')
+//	ccPassword = project.getProperty('CF_PSW')
+//	org = project.getProperty(project.getProperty('ENV') + '.CCOrg')
+//	space = project.getProperty(project.getProperty('ENV') + '.CCSpace')
+//	name = project.getProperty(project.getProperty('ENV') + '.AppName')
+//	filePath = "build/libs/tj-fe-ms-0.0.1-SNAPSHOT.jar"
+//	path = ""
+//	//config
+//	instances = 1
+//	memory = 1024
+//	timeout = 180
+//	routes = [project.getProperty(project.getProperty('ENV') + '.CCRoutes')]
+//	def profiles = project.getProperty('ENV').toLowerCase() + ",cloud"
+//	environment = ["SPRING_PROFILES_ACTIVE": profiles]
+//}
 

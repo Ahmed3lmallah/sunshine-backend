@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import java.util.*;
 
 public class CustomAuthoritiesExtractor implements AuthoritiesExtractor {
+
     @Override
     public List<GrantedAuthority> extractAuthorities (Map<String, Object> map) {
         return AuthorityUtils
@@ -19,7 +20,7 @@ public class CustomAuthoritiesExtractor implements AuthoritiesExtractor {
                 (List<LinkedHashMap<String, String>>) map.get("roles");
 
         for (LinkedHashMap<String, String> entry : authz) {
-            authorities.add("ROLE_"+entry.get("name"));
+            authorities.add(entry.get("name"));
         }
         return String.join(",", authorities);
     }

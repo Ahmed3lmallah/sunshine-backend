@@ -12,7 +12,6 @@ public class OfficeService {
     OfficeRepository officeRepository;
 
     public String deleteOfficeById(Long Id){
-
         Office office = officeRepository.findById(Id).get();
         office.setActive(false);
         officeRepository.save(office);

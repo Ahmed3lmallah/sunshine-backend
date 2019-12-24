@@ -1,5 +1,6 @@
 package com.cognizant.cde.tjfems.controller;
 
+import com.cognizant.cde.tjfems.client.OfficeCrudClient;
 import com.cognizant.cde.tjfems.model.Office;
 import com.cognizant.cde.tjfems.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class OfficeController {
     @Autowired
     private ServiceLayer serviceLayer;
 
+    @Autowired
+    OfficeCrudClient officeCrudClient;
+
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Office createOffice(@RequestBody Office office) {
@@ -26,6 +30,11 @@ public class OfficeController {
     @GetMapping
     public List<Office> getAllOffices(){
         return serviceLayer.getAllOffice();
+    }
+
+    @GetMapping("/manager/{managerId}")
+    public List<Office> getOfficesByManagerId(@PathVariable(name = "managerId") Long managerId){
+        return officeCrudClient.getOfficesByManagerId(managerId);
     }
 
     @GetMapping("/{id}")
@@ -45,11 +54,4 @@ public class OfficeController {
     public String deleteOffice(@PathVariable(name = "id") Long id) {
         return serviceLayer.deleteOffice(id);
     }
-
-    @GetMapping("/manager")
-    public List<Office> getOfficesByManagerId() {
-        return serviceLayer.getOfficesByManagerId();
-    }
-
-
 }

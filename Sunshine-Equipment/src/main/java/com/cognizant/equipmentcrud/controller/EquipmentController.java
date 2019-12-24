@@ -28,13 +28,25 @@ public class EquipmentController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Equipment> getAllEquipment() {
+
         return equipmentRepository.findAll();
     }
 
+    @RequestMapping(value = "/office/{id}", method = RequestMethod.GET)
+    public List<Equipment> getEquipmentByOfficeId(@PathVariable(name = "id") Long id) {
+        List<Equipment> list = equipmentRepository.getEquipmentByOfficeId(id);
+        return list;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Equipment getEquipmentById(@PathVariable(name = "id") Long id) {
+        return equipmentRepository.findById(id).orElse(new Equipment());
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Equipment getEquipmentById(@RequestBody Equipment e, @PathVariable(name = "id") Long id) {
+    public Equipment updateEquipment(@RequestBody Equipment e, @PathVariable(name = "id") Long id) {
         if (id != e.getEquipmentId()){
-            throw  new IllegalArgumentException("No match found");
+            throw new IllegalArgumentException("No match found");
         }
         return equipmentRepository.save(e);
     }

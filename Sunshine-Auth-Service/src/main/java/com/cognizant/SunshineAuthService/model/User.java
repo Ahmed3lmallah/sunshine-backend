@@ -35,7 +35,16 @@ public class User {
     private String lastName;
     private String email;
     private String department;
+    private Long managerId;
 
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
 
     public Long getId() {
         return id;

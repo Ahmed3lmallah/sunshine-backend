@@ -22,6 +22,11 @@ public class UserController {
         return userCrudClient.getAllUsers();
     }
 
+    @GetMapping("/manager/{managerId}")
+    public List<UserViewModel> getAllUsersByManagerId(@PathVariable(name = "managerId") Long managerId){
+        return userCrudClient.getAllUsersByManagerId(managerId);
+    }
+
     @GetMapping("/{username}")
     public UserViewModel getUserByUsername(@PathVariable(name = "username") String username){
         return userCrudClient.getUserByUsername(username);

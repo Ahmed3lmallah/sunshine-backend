@@ -42,6 +42,18 @@ public class UserService {
         return userViewModelList;
     }
 
+    public List<UserViewModel> findUsersByManagerId(Long managerId) {
+        List<User> users = userRepository.findUserByManagerId(managerId);
+        List<UserViewModel> userViewModelList = new ArrayList<>();
+
+        users.forEach( user -> {
+            UserViewModel userViewModel = userToViewModel(user);
+            userViewModelList.add(userViewModel);
+        });
+
+        return userViewModelList;
+    }
+
     public UserViewModel register(User user){
 
         /*
@@ -91,6 +103,7 @@ public class UserService {
         user.setEmail(userInput.getEmail());
         user.setDepartment(userInput.getDepartment());
         user.setRoles(userInput.getRoles());
+        user.setManagerId(userInput.getManagerId());
         user.setActive(userInput.isActive());
 
         return userToViewModel(userRepository.save(user));
@@ -108,6 +121,7 @@ public class UserService {
         userViewModel.setDepartment(user.getDepartment());
         userViewModel.setActive(user.isActive());
         userViewModel.setRoles(user.getRoles());
+        userViewModel.setManagerId(user.getManagerId());
         return userViewModel;
     }
 

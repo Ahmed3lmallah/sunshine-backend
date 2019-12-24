@@ -22,6 +22,11 @@ public class UserController {
         return userService.findAllUsers();
     }
 
+    @GetMapping("/users/manager/{managerId}")
+    public List<UserViewModel> getAllUsersByManagerId(@PathVariable Long managerId) {
+        return userService.findUsersByManagerId(managerId);
+    }
+
     @GetMapping("/users/{username}")
     public UserViewModel getUserByUsername(@PathVariable String username){
         return userService.findByUsername(username);

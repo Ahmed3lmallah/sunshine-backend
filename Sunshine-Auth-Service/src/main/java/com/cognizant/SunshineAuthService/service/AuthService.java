@@ -29,31 +29,34 @@ public class AuthService {
         return passwordEncoder.encode(password);
     }
 
-    public void register(String username, String password, Boolean passwordEncoded, String... roleNames) {
+    public void register(String username, String password, String firstName, String lastName, String email, String department,
+                         Long managerId, String... roleNames) {
         User user = new User();
 
-        //
+        // Persisting User
         user.setUsername(username);
-        if(passwordEncoded){
-            user.setPassword(password);
-        } else {
-            user.setPassword(passwordEncoder.encode(password));
-        }
-        //save
-        user = userRepository.save(user);
-        //check the role
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setDepartment(department);
+        user.setManagerId(managerId);
+        user.setActive(true);
+        user.setPassword(passwordEncoder.encode(password));
+
+        // Fixing Roles
         Set<Role> roles = new HashSet<>();
         if (roleNames.length != 0) {
             for (String roleName : roleNames) {
                 Role role = roleRepository.findByName(roleName);
                 roles.add(role);
-            }//end for
+            }
         } else {
             roles.add(roleRepository.findByName("ROLE_DEVELOPER"));
-        }//end if
-        //update the user
+        }
+
         user.setRoles(roles);
-        //save
+
+        // Saving User
         userRepository.save(user);
     }
 
@@ -73,6 +76,7 @@ public class AuthService {
         userViewModel.setLastName(user.getLastName());
         userViewModel.setEmail(user.getEmail());
         userViewModel.setDepartment(user.getDepartment());
+        userViewModel.setManagerId(user.getManagerId());
         userViewModel.setRoles(user.getRoles());
         return userViewModel;
     }

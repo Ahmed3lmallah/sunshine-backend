@@ -1,9 +1,9 @@
 package com.cognizant.cde.tjfems.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class Office implements Serializable {
+public class Office {
+
     private Long officeId;
     private String officeName;
     private String streetAddress;
@@ -11,19 +11,10 @@ public class Office implements Serializable {
     private String state;
     private String zip;
     private String country;
-    private Boolean active;
-
-    public Office() { }
-
-    public Office(String officeName, String streetAddress, String city, String state, String zip, String country) {
-        this.officeName = officeName;
-        this.streetAddress = streetAddress;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.country = country;
-        this.setActive(true);
-    }
+    private boolean active = true;
+    private Long managerId;
+    private String website;
+    private String fax;
 
     public Long getOfficeId() {
         return officeId;
@@ -81,12 +72,36 @@ public class Office implements Serializable {
         this.country = country;
     }
 
-    public Boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
     }
 
     @Override
@@ -94,18 +109,21 @@ public class Office implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Office office = (Office) o;
-        return Objects.equals(getOfficeId(), office.getOfficeId()) &&
+        return isActive() == office.isActive() &&
+                Objects.equals(getOfficeId(), office.getOfficeId()) &&
                 Objects.equals(getOfficeName(), office.getOfficeName()) &&
                 Objects.equals(getStreetAddress(), office.getStreetAddress()) &&
                 Objects.equals(getCity(), office.getCity()) &&
                 Objects.equals(getState(), office.getState()) &&
                 Objects.equals(getZip(), office.getZip()) &&
                 Objects.equals(getCountry(), office.getCountry()) &&
-                Objects.equals(getActive(), office.getActive());
+                Objects.equals(getManagerId(), office.getManagerId()) &&
+                Objects.equals(getWebsite(), office.getWebsite()) &&
+                Objects.equals(getFax(), office.getFax());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOfficeId(), getOfficeName(), getStreetAddress(), getCity(), getState(), getZip(), getCountry(), getActive());
+        return Objects.hash(getOfficeId(), getOfficeName(), getStreetAddress(), getCity(), getState(), getZip(), getCountry(), isActive(), getManagerId(), getWebsite(), getFax());
     }
 }

@@ -19,6 +19,7 @@ public class User {
     private String lastName;
     private String email;
     private String department;
+    private long managerId;
 
     public Long getId() {
         return id;
@@ -90,5 +91,13 @@ public class User {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(long managerId) {
+        this.managerId = managerId;
     }
 }

@@ -10,14 +10,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .antMatchers(HttpMethod.GET,"/offices").authenticated()
-//                .antMatchers(HttpMethod.GET,"/offices/office/{id}").authenticated()
                 .antMatchers(HttpMethod.POST,"/offices").hasAuthority("ROLE_ADMIN")
                 .antMatchers(HttpMethod.PUT,"/offices/office/{id}").hasAuthority("ROLE_ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/offices/office/{id}").hasAuthority("ROLE_ADMIN")
-                .anyRequest().authenticated();//was .permitAll();
+                .anyRequest().authenticated();
 
-        // add this line to use H2 web console
-//        http.headers().frameOptions().disable();
+        /*
+         add this line to use H2 web console
+            http.headers().frameOptions().disable();
+         */
+
     }
 }

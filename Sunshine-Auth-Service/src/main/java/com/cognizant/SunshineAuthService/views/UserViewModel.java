@@ -14,6 +14,7 @@ public class UserViewModel {
     private String lastName;
     private String email;
     private String department;
+    private Long managerId;
     private boolean active;
 
     @JsonIgnoreProperties("users")
@@ -81,5 +82,13 @@ public class UserViewModel {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
     }
 }

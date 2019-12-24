@@ -13,6 +13,9 @@ public interface UserCrudClient {
     @GetMapping("/users")
     List<UserViewModel> getAllUsers();
 
+    @GetMapping("/users/manager/{managerId}")
+    List<UserViewModel> getAllUsersByManagerId(@PathVariable(name = "managerId") Long managerId);
+
     @GetMapping("/users/{username}")
     UserViewModel getUserByUsername(@PathVariable(name = "username") String username);
 

@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Office {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long officeId;
@@ -25,6 +26,38 @@ public class Office {
     private String country;
     @Column (columnDefinition="tinyint(1) default 1")
     private boolean active = true;
+    @Column(nullable = false)
+    private Long managerId;
+
+    /*
+    Optional
+     */
+    private String website;
+    private String fax;
+
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
 
     public Long getOfficeId() {
         return officeId;
@@ -102,25 +135,14 @@ public class Office {
                 Objects.equals(getCity(), office.getCity()) &&
                 Objects.equals(getState(), office.getState()) &&
                 Objects.equals(getZip(), office.getZip()) &&
-                Objects.equals(getCountry(), office.getCountry());
+                Objects.equals(getCountry(), office.getCountry()) &&
+                Objects.equals(getManagerId(), office.getManagerId()) &&
+                Objects.equals(getWebsite(), office.getWebsite()) &&
+                Objects.equals(getFax(), office.getFax());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOfficeId(), getOfficeName(), getStreetAddress(), getCity(), getState(), getZip(), getCountry(), isActive());
-    }
-
-    @Override
-    public String toString() {
-        return "Office{" +
-                "officeId=" + officeId +
-                ", officeName='" + officeName + '\'' +
-                ", streetAddress='" + streetAddress + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
-                ", country='" + country + '\'' +
-                ", active=" + active +
-                '}';
+        return Objects.hash(getOfficeId(), getOfficeName(), getStreetAddress(), getCity(), getState(), getZip(), getCountry(), isActive(), getManagerId(), getWebsite(), getFax());
     }
 }
