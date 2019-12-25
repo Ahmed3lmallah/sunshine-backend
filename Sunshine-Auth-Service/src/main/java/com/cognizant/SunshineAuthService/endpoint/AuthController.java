@@ -1,8 +1,7 @@
 package com.cognizant.SunshineAuthService.endpoint;
 
-import com.cognizant.SunshineAuthService.model.User;
 import com.cognizant.SunshineAuthService.service.AuthService;
-import com.cognizant.SunshineAuthService.views.UserViewModel;
+import com.cognizant.SunshineAuthService.views.AuthViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +11,7 @@ import java.security.Principal;
 public class AuthController {
 
     @Autowired
-    AuthService authService;
+    private AuthService authService;
 
     @PostMapping("encrypt")
     public String encrypt(@RequestBody String password) {
@@ -20,7 +19,7 @@ public class AuthController {
     }
 
     @GetMapping("user/me")
-    public UserViewModel me(Principal principal){
+    public AuthViewModel me(Principal principal){
         return authService.me(principal);
     }
 
