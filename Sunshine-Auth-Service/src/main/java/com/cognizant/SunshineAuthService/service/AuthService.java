@@ -30,7 +30,7 @@ public class AuthService {
     }
 
     public void register(String username, String password, String firstName, String lastName, String email, String department,
-                         Long managerId, String... roleNames) {
+                         Long managerId, String role) {
         User user = new User();
 
         // Persisting User
@@ -42,19 +42,7 @@ public class AuthService {
         user.setManagerId(managerId);
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(password));
-
-        // Fixing Roles
-        Set<Role> roles = new HashSet<>();
-        if (roleNames.length != 0) {
-            for (String roleName : roleNames) {
-                Role role = roleRepository.findByName(roleName);
-                roles.add(role);
-            }
-        } else {
-            roles.add(roleRepository.findByName("ROLE_DEVELOPER"));
-        }
-
-        user.setRoles(roles);
+        user.setRole(roleRepository.findByName(role));
 
         // Saving User
         userRepository.save(user);
@@ -77,7 +65,8 @@ public class AuthService {
         userViewModel.setEmail(user.getEmail());
         userViewModel.setDepartment(user.getDepartment());
         userViewModel.setManagerId(user.getManagerId());
-        userViewModel.setRoles(user.getRoles());
+        userViewModel.setRole(user.getRole());
+        userViewModel.setActive(user.isActive());
         return userViewModel;
     }
 }

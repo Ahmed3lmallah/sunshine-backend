@@ -71,10 +71,8 @@ public class UserService {
         Set Roles:
             If no roles objects assigned (public registration) assign developer role.
          */
-        if (user.getRoles().size() == 0) {
-            Set<Role> roles = new HashSet<>();
-            roles.add(roleRepository.findByName("ROLE_DEVELOPER"));
-            user.setRoles(roles);
+        if (user.getRole() == null) {
+            user.setRole(roleRepository.findByName("DEVELOPER"));
         }
 
         // Encoding password
@@ -102,7 +100,7 @@ public class UserService {
         user.setLastName(userInput.getLastName());
         user.setEmail(userInput.getEmail());
         user.setDepartment(userInput.getDepartment());
-        user.setRoles(userInput.getRoles());
+        user.setRole(userInput.getRole());
         user.setManagerId(userInput.getManagerId());
         user.setActive(userInput.isActive());
 
@@ -120,7 +118,7 @@ public class UserService {
         userViewModel.setEmail(user.getEmail());
         userViewModel.setDepartment(user.getDepartment());
         userViewModel.setActive(user.isActive());
-        userViewModel.setRoles(user.getRoles());
+        userViewModel.setRole(user.getRole());
         userViewModel.setManagerId(user.getManagerId());
         return userViewModel;
     }
