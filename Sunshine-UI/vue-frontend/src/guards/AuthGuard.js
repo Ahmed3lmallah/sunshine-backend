@@ -1,13 +1,15 @@
-import { AuthService } from '../service/auth/';
+import authService from '../service/common/CommonCall'
+import Router from '../router';
 
 const AuthGuard = {
-    canActivate: (from) => {
-        if (AuthService.getToken()) {
-            if (AuthService.getToken().exp > (Date.now() / 1000))
+    canActivate: (to) => {
+        if (authService.getToken()) {
+            if (authService.getToken().exp > (Date.now() / 1000))
                 return true;
         }
-        this.$router.push({ name: 'user', params: { returnUrl: from } });
+        console.log("No Authority!!");
+        Router.push({ name: 'login', params: { returnUrl: to } });
     }
-}
+};
 
 export { AuthGuard };

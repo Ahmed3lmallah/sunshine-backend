@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 
+import LoginModule from './modules/login.js'
 import SettingModule from './modules/setting.js'
 import SettingPlugin from './plugins/setting.js'
 import ThemeModule from './modules/theme.js'
@@ -12,7 +13,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: {
         setting: SettingModule,
-        theme: ThemeModule
+        theme: ThemeModule,
+        login: LoginModule
     },
     plugins: [
         createPersistedState({

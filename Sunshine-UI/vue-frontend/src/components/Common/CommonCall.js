@@ -1,51 +1,71 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
- 
+
 Vue.use(VueAxios, axios);
 
 const authService = {
 
     getCall: async (url, parameters) => {
-            Vue.axios.get(url,{
-                params: parameters
-              }).then((response) => {
-                  if(response != error) {
-                      if(response.status >= 400) {                        
-                            console.log("RESPONSE STATUS: ", response.status)
-                            console.log("RESPONSE: ", response)
-                            return;
-                      }
-                      if(response.status == 200) {
-                        return response.data
-                      }                  
-                  } else {
-                      return error;
-                  }        
-            })
-        },
-    
-    postCall: async (url, parameters) => {
-        console.log('postCall');
-        /*
-            Vue.axios.post(url,{
-                params: parameters
-              }).then((response) => {
-                  if(response != error) {
-                      if(response.status >= 400) {                        
-                            console.log("RESPONSE STATUS: ", response.status)
-                            console.log("RESPONSE: ", response)
-                            return;
-                      }
-                      if(response.status == 200) {
-                        return response.data
-                      }                  
-                  } else {
-                      return error;
-                  }        
-            })
-            */
-        },
+        axios({
+            method: 'GET',
+            url: url,
+            headers: {
+                "Content-Type": 'application/x-www-form-urlencoded',
+                "Access-Control-Allow-Origin": '*',
+                "Access-Control-Allow-Headers" : "x-requested-with, authorization",
+                "Authorization": "Basic " + btoa("admin : ClientSecret")
+            },
+            params: parameters
+        }).then((response) => {
 
-} 
+            if(response.status >= 400) {
+                console.log("RESPONSE STATUS: ", response.status)
+                console.log("RESPONSE: ", response)
+                return;
+            }
+            if(response.status == 200) {
+                return response.data
+            }
+
+        })
+    },
+
+    postCall: async (url, parameters, options) => {
+        console.log('postCall');
+
+        let response = await axios.post(url, parameters, options).catch(function(e){ console.log(e); return 'error catch';});
+
+        if(response.status >= 400) {
+            console.log("RESPONSE STATUS: ", response.status)
+            console.log("RESPONSE: ", response)
+            return 'error';
+        }
+        if(response.status == 200) {
+            console.log("response.data", response);
+            console.log("response.data", response.data.access_token);
+            return response.data.access_token;
+        }
+
+    },
+
+    getToken: () => {
+        try {
+            const accessToken = sessionStorage.getItem('access_token');
+            return JSON.parse(atob(accessToken.split('.')[1]));
+        } catch (e) {
+            return false;
+        }
+    },
+
+    checkAuthority: (role) => {
+        const token = authService.getToken();
+        try {
+            return token.authorities.includes(role);
+        } catch (e) {
+            return false;
+        }
+    }
+}
+
 export default authService;

@@ -8,17 +8,23 @@
           <th scope = "col">Address</th>
           <th scope = "col">City</th>
           <th scope = "col">Zip Code</th>
-          <th scope = "col"></th>
-          <th scope = "col"></th>
+          <th scope = "col" v-if="isAdmin"></th>
+          <th scope = "col" v-if="isAdmin"></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody v-if="isAdmin">
         <table-row 
-          v-for="office in activeOffices" :key="office.officeId" :office="office"
+          v-for="office in activeOffices" 
+          :key="office.officeId" 
+          :office="office"
+          :isAdmin="isAdmin"
           @delete-office="setDelete"/>
         <table-row class="inactive"
-          v-for="office in inactiveOffices" :key="office.officeId" :office="office"
-          @delete-office="setDelete"/>
+          v-for="office in inactiveOffices" 
+          :key="office.officeId" 
+          :office="office"
+          @delete-office="setDelete"
+          />
       </tbody>
     </table>
     <div class="text-center" v-show="loading">Loading Offices...</div>
@@ -42,6 +48,12 @@
          deleteOffice: false,
          idToDelete: 1
         };
+       },
+       props: {
+         isAdmin: {
+           type: Boolean,
+           default: false
+         },
        },
       created() {
         this.getOffices();
@@ -84,7 +96,8 @@
         inactiveOffices() {
           let inactive = this.offices.filter(office => !office.active);
           return inactive;
-        }
+        },
+
       },
     }
 </script>

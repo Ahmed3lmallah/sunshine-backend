@@ -48,5 +48,29 @@ const authService = {
         }
         
     },
-} 
+
+    getToken: () => {
+        try {
+            const accessToken = sessionStorage.getItem('access_token');
+            return JSON.parse(atob(accessToken.split('.')[1]));
+        } catch (e) {
+            return false;
+        }
+    },
+
+    checkAuthority: (role) => {
+        const token = authService.getToken();
+        try {
+            return token.authorities.includes(role);
+        } catch (e) {
+            return false;
+        }
+    },
+
+    logoutStub: async () => {
+        console.log('logoutStub');  
+        return 'logged out';   
+   }
+}
+
 export default authService;

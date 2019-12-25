@@ -9,8 +9,8 @@ plugins {
 
 // We have to specify which node and NPM version we want to use.
 node {
-  version = '11.4.0'
-  npmVersion = '6.4.1'
+  version = '12.10.0'
+  npmVersion = '6.10.3'
   download = true
 }
 
