@@ -84,7 +84,7 @@ public class OfficeControllerTest {
         String outputJson = mapper.writeValueAsString(office2);
         Mockito.when(serviceLayer.createOffice(office)).thenReturn(office2);
 
-        accessToken = helper.getAccessToken("admin", "admin");
+        accessToken = helper.getAccessToken("000000", "password");
         this.mockMvc.perform(post("/api/offices")
                 .content(inputJson)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -105,7 +105,7 @@ public class OfficeControllerTest {
         office.setCountry("United States");
         String inputJson = mapper.writeValueAsString(office);
 
-        accessToken = helper.getAccessToken("admin", "admin");
+        accessToken = helper.getAccessToken("000000", "password");
 
         when(serviceLayer.updateOffice(office, 1l)).thenReturn(office);
         this.mockMvc.perform(put("/api/offices/1")
@@ -128,7 +128,7 @@ public class OfficeControllerTest {
         office.setCountry("United States");
         String inputJson = mapper.writeValueAsString(office);
 
-        accessToken = helper.getAccessToken("admin", "admin");
+        accessToken = helper.getAccessToken("000000", "password");
 
         when(serviceLayer.updateOffice(office, 2l)).thenReturn(office);
         this.mockMvc.perform(put("/api/offices/2")
@@ -143,7 +143,7 @@ public class OfficeControllerTest {
 
         String message = "Office 1 deleted";
 
-        accessToken = helper.getAccessToken("admin","admin");
+        accessToken = helper.getAccessToken("000000","password");
 
         when(serviceLayer.deleteOffice(1L)).thenReturn(message);
         this.mockMvc.perform(delete("/api/offices/1")
