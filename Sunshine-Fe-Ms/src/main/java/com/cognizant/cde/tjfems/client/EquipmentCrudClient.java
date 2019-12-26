@@ -20,7 +20,7 @@ public interface EquipmentCrudClient {
     @GetMapping("/equipment/{equipmentId}")
     Equipment getEquipmentByEquipmentId(@PathVariable(name = "equipmentId") Long equipmentId);
 
-    @PostMapping("/equipment/register")
+    @PostMapping("/equipment")
     Equipment registerEquipment(@RequestBody Equipment equipment);
 
     @DeleteMapping("/equipment/{equipmentId}")
