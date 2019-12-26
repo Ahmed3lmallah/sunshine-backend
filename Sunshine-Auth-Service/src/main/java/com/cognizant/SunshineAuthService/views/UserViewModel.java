@@ -3,9 +3,6 @@ package com.cognizant.SunshineAuthService.views;
 import com.cognizant.SunshineAuthService.model.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class UserViewModel {
 
     private Long id;
@@ -18,7 +15,7 @@ public class UserViewModel {
     private boolean active;
 
     @JsonIgnoreProperties("users")
-    private Set<Role> roles = new HashSet<>();
+    private Role role;
 
     public Long getId() {
         return id;
@@ -68,12 +65,12 @@ public class UserViewModel {
         this.department = department;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public boolean isActive() {

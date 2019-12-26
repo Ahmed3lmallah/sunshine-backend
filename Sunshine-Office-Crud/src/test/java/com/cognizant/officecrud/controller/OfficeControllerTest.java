@@ -97,7 +97,7 @@ public class OfficeControllerTest {
         outputOfc.setZip("75063");
         String outputJson = mapper.writeValueAsString(outputOfc);
 
-        accessToken = helper.getAccessToken("admin","admin");
+        accessToken = helper.getAccessToken("000000","password");
 
         when(officeRepository.save(inputOfc)).thenReturn(outputOfc);
         this.mockMvc.perform(post("/offices")
@@ -119,7 +119,7 @@ public class OfficeControllerTest {
         inputOfc.setZip("75063");
         String inputJson = mapper.writeValueAsString(inputOfc);
 
-        accessToken = helper.getAccessToken("admin","admin");
+        accessToken = helper.getAccessToken("000000","password");
 
         when(officeRepository.save(inputOfc)).thenReturn(inputOfc);
         this.mockMvc.perform(put("/offices/office/1")
@@ -141,7 +141,7 @@ public class OfficeControllerTest {
         inputOfc.setZip("75063");
         String inputJson = mapper.writeValueAsString(inputOfc);
 
-        accessToken = helper.getAccessToken("admin","admin");
+        accessToken = helper.getAccessToken("000000","password");
 
         when(officeRepository.save(inputOfc)).thenReturn(inputOfc);
         this.mockMvc.perform(put("/offices/office/2")
@@ -156,7 +156,7 @@ public class OfficeControllerTest {
 
         String message = "Office 1 deleted";
 
-        accessToken = helper.getAccessToken("admin","admin");
+        accessToken = helper.getAccessToken("000000","password");
 
         when(officeService.deleteOfficeById(1L)).thenReturn(message);
         this.mockMvc.perform(delete("/offices/office/1")

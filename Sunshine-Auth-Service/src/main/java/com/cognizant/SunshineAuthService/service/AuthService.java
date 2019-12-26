@@ -4,7 +4,7 @@ import com.cognizant.SunshineAuthService.model.Role;
 import com.cognizant.SunshineAuthService.model.User;
 import com.cognizant.SunshineAuthService.repository.RoleRepository;
 import com.cognizant.SunshineAuthService.repository.UserRepository;
-import com.cognizant.SunshineAuthService.views.UserViewModel;
+import com.cognizant.SunshineAuthService.views.AuthViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class AuthService {
     }
 
     public void register(String username, String password, String firstName, String lastName, String email, String department,
-                         Long managerId, String... roleNames) {
+                         Long managerId, String role) {
         User user = new User();
 
         // Persisting User
@@ -42,25 +42,13 @@ public class AuthService {
         user.setManagerId(managerId);
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(password));
-
-        // Fixing Roles
-        Set<Role> roles = new HashSet<>();
-        if (roleNames.length != 0) {
-            for (String roleName : roleNames) {
-                Role role = roleRepository.findByName(roleName);
-                roles.add(role);
-            }
-        } else {
-            roles.add(roleRepository.findByName("ROLE_DEVELOPER"));
-        }
-
-        user.setRoles(roles);
+        user.setRole(roleRepository.findByName(role));
 
         // Saving User
         userRepository.save(user);
     }
 
-    public UserViewModel me(Principal principal){
+    public AuthViewModel me(Principal principal){
         return userToViewModel(userRepository.findByUsername(principal.getName()));
     }
 
@@ -68,16 +56,37 @@ public class AuthService {
     HELPER METHOD
         Transforms User model to the UserView to hide password.
      */
-    private UserViewModel userToViewModel(User user) {
-        UserViewModel userViewModel = new UserViewModel();
-        userViewModel.setId(user.getId());
-        userViewModel.setUsername(user.getUsername());
-        userViewModel.setFirstName(user.getFirstName());
-        userViewModel.setLastName(user.getLastName());
-        userViewModel.setEmail(user.getEmail());
-        userViewModel.setDepartment(user.getDepartment());
-        userViewModel.setManagerId(user.getManagerId());
-        userViewModel.setRoles(user.getRoles());
-        return userViewModel;
+    private AuthViewModel userToViewModel(User user) {
+        AuthViewModel authViewModel = new AuthViewModel();
+        authViewModel.setId(user.getId());
+        authViewModel.setUsername(user.getUsername());
+        authViewModel.setFirstName(user.getFirstName());
+        authViewModel.setLastName(user.getLastName());
+        authViewModel.setEmail(user.getEmail());
+        authViewModel.setDepartment(user.getDepartment());
+        authViewModel.setManagerId(user.getManagerId());
+        authViewModel.setActive(user.isActive());
+
+        /*
+        SET ROLES
+         */
+        Set<Role> authorities = new HashSet<>();
+        switch (user.getRole().getName()){
+            case "DEVELOPER":
+                authorities.add(roleRepository.findByName("DEVELOPER"));
+                break;
+            case "MANAGER":
+                authorities.add(roleRepository.findByName("DEVELOPER"));
+                authorities.add(roleRepository.findByName("MANAGER"));
+                break;
+            case "ADMIN":
+                authorities.add(roleRepository.findByName("DEVELOPER"));
+                authorities.add(roleRepository.findByName("MANAGER"));
+                authorities.add(roleRepository.findByName("ADMIN"));
+                break;
+        }
+
+        authViewModel.setRoles(authorities);
+        return authViewModel;
     }
 }

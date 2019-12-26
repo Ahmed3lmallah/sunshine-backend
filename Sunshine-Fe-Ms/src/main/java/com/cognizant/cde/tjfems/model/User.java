@@ -14,7 +14,7 @@ public class User {
     private String password;
     private boolean active = true;
     @JsonIgnoreProperties("users")
-    private Set<Role> roles = new HashSet<>();
+    private Role role;
     private String firstName;
     private String lastName;
     private String email;
@@ -45,12 +45,12 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public boolean isActive() {

@@ -1,12 +1,9 @@
 package com.cognizant.SunshineAuthService.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="user")
@@ -20,16 +17,15 @@ public class User {
     private String username;
 
     @NotNull
-//    @JsonIgnore
     private String password;
 
     @Column (columnDefinition="tinyint(1) default 1")
     private boolean active = true;
 
-    @ManyToMany
+    @ManyToOne
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     @JsonIgnoreProperties("users")
-    private Set<Role> roles = new HashSet<>();
+    private Role role;
 
     private String firstName;
     private String lastName;
@@ -70,20 +66,20 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
     public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     //Additional Fields
