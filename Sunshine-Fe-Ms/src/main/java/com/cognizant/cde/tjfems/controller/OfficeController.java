@@ -1,7 +1,9 @@
 package com.cognizant.cde.tjfems.controller;
 
 import com.cognizant.cde.tjfems.client.OfficeCrudClient;
+import com.cognizant.cde.tjfems.model.History;
 import com.cognizant.cde.tjfems.model.Office;
+import com.cognizant.cde.tjfems.repository.HistoryRepository;
 import com.cognizant.cde.tjfems.service.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,10 @@ public class OfficeController {
     private ServiceLayer serviceLayer;
 
     @Autowired
-    OfficeCrudClient officeCrudClient;
+    private HistoryRepository historyRepository;
+
+    @Autowired
+    private OfficeCrudClient officeCrudClient;
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -29,6 +34,7 @@ public class OfficeController {
 
     @GetMapping
     public List<Office> getAllOffices(){
+        historyRepository.save(new History("Office", "[GET]", "/api/offices", "Get All offices"));
         return serviceLayer.getAllOffice();
     }
 
