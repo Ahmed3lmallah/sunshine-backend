@@ -11,7 +11,9 @@ public class CustomRequestInterceptor implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate requestTemplate) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
-        requestTemplate.header("Authorization", "Bearer " + details.getTokenValue());
+        if(!authentication.getPrincipal().equals("anonymousUser")){
+            OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
+            requestTemplate.header("Authorization", "Bearer " + details.getTokenValue());
+        }
     }
 }

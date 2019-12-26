@@ -20,10 +20,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/api/equipment/{id}").hasAuthority("ROLE_ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/equipment/{id}").hasAuthority("ROLE_ADMIN")
                 // Protected User Crud Endpoints
-                .antMatchers("/users/register").permitAll()
-                .antMatchers(HttpMethod.POST,"/users").hasAuthority("ROLE_ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/users/{username}").hasAuthority("ROLE_ADMIN")
-                .antMatchers(HttpMethod.PUT, "/users/{username}").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/api/users/register").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/users").hasAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/users/{username}").hasAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/users/{username}").hasAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.GET,"/api/users/manager").hasAuthority("ROLE_MANAGER")
                 // All Others
                 .anyRequest().authenticated();
     }
