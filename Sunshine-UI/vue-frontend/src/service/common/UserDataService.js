@@ -1,51 +1,89 @@
 import axios from 'axios';
 
-
-const USER_API_URL = 'https://sunshine-fe-ms.cfapps.io'
-const token = sessionStorage.getItem('access_token');
-const AuthStr = `Bearer ${token}`
+const USER_API_URL = 'https://sunshine-fe-ms.cfapps.io';
 
 class UserDataService {
 
-    async getAllUsers(){
-        const response = await axios.get(USER_API_URL + '/api/users', { headers: { Authorization: AuthStr } });
-        console.log(response.data);
-        return response.data;
+    getToken(){
+        return sessionStorage.getItem('access_token');
     }
 
-    async getUserByName(username) {
-        console.log("this.getUserByName", username)
-        try {
-            const response = await axios.get(USER_API_URL + '/api/users/' + username, { headers: { Authorization: AuthStr } });
-            console.log(response.data);
-            return response.data;
-        }
-        catch (error) {
-            console.log(`Error: ${error}`);
-        }
+    getAllUsers(){
+        return axios.get(USER_API_URL + '/api/users', {headers: { Authorization: `Bearer ${this.getToken()}` }})
+            .then(response => {
+                console.log("All users fetched:");
+                console.log(response.data);
+                return response.data;
+            }).catch( error => {
+                console.log(`Error: ${error}`)
+            })
     }
 
-    async createUser(user) {
-        console.log("creating user");
-        console.log(AuthStr);
-        const res = await axios.post(`${USER_API_URL}/api/users`, user, { headers: { Authorization: AuthStr } });
-        console.log(res.data);
+    getUserByUsername(username) {
+        return axios.get(USER_API_URL + '/api/users/' + username, {headers: { Authorization: `Bearer ${this.getToken()}` }})
+            .then(response => {
+                console.log(`User [${username}] fetched:`);
+                console.log(response.data);
+                return response.data;
+            }).catch( error => {
+                console.log(`Error: ${error}`)
+            })
     }
 
-    async updateUser(id, user) {
-        console.log('Editing user')
-        const res = await axios.put(`${USER_API_URL}/api/users/${id}`, user, { headers: { Authorization: AuthStr } });
-        console.log(res.data);
+    getUsersByManagerId(managerId) {
+        return axios.get(USER_API_URL + '/api/users/manager/' + managerId, {headers: { Authorization: `Bearer ${this.getToken()}` }})
+            .then(response => {
+                console.log(`Users fetched for manager ${managerId}:`);
+                console.log(response.data);
+                return response.data;
+            }).catch( error => {
+                console.log(`Error: ${error}`)
+            })
     }
 
-    async deleteUser(username) {
-        try {
-            const res = await axios.delete(`${USER_API_URL}/api/users/${username}`, { headers: { Authorization: AuthStr } });
-            console.log("user deleted");
-        }
-        catch (err) {
-            console.log(`Error: ${err}`);
-        }
+    createUser(user) {
+        return axios.post(`${USER_API_URL}/api/users`, user, {headers: { Authorization: `Bearer ${this.getToken()}` }})
+            .then(response => {
+                console.log(`User [${user.username}] added:`);
+                console.log(response.data);
+                return response.data;
+            }).catch( error => {
+                console.log(`Error: ${error}`)
+            })
+    }
+
+    registerUser(user) {
+        return axios.post(`${USER_API_URL}/api/users/register`, user)
+            .then(response => {
+                console.log(`User [${user.username}] registered:`);
+                console.log(response.data);
+                return response.data;
+            }).catch( error => {
+                console.log(`Error: ${error}`)
+            })
+    }
+
+
+    updateUser(username, user) {
+        console.log(user);
+        return axios.put(`${USER_API_URL}/api/users/${username}`, user, {headers: { Authorization: `Bearer ${this.getToken()}` }})
+            .then(response => {
+                console.log(`User [${username}] edited:`);
+                console.log(response.data);
+                return response.data;
+            }).catch( error => {
+                console.log(`Error: ${error}`)
+            })
+    }
+
+    deleteUser(username) {
+        return axios.delete(`${USER_API_URL}/api/users/${username}`, {headers: { Authorization: `Bearer ${this.getToken()}` }})
+            .then(response => {
+                console.log(response.data);
+                return response.data;
+            }).catch(error => {
+                console.log(`Error: ${error}`)
+            })
     }
 }
 

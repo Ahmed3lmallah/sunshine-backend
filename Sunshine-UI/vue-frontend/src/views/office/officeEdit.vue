@@ -25,7 +25,7 @@
       </div>
       <div class="form-group">
         <label for="inputCountry">Country</label>
-        <country-select v-model="office.country" :country="office.country" class="form-control" />
+        <country-select v-model="office.country" :country="office.country"  class="form-control" />
       </div>
       <div class="form-group">
         <label for="officeName">Name</label>
@@ -116,8 +116,6 @@ export default {
     };
   },
   created() {
-    console.log("Form Created");
-    // console.log('params: ' + this.$router.query.id);
     if (this.id) {
       OfficeDataService.getOfficeById(this.id).then(result => {
         this.office = result;
@@ -125,9 +123,6 @@ export default {
     }
   },
   computed: {
-    // id() {
-    //   return this.$route.query.id;
-    // }
     displayStateOrRegion() {
       if (this.office.country === "US") {
         return "State";
@@ -159,9 +154,6 @@ export default {
       if (!this.office.city) {
         this.errors.push("Enter valid values");
       }
-      // if (!this.office.zip) {
-      //   this.errors.push("Enter valid values");
-      // }
 
       //When the user input is valid, if there is no id in the path
       //then the office is saved to the database and the app is routed to officeList

@@ -1,10 +1,9 @@
 <template>
   <div class="card card-default">
-    <!-- <div class="card-header">Sortable</div> -->
     <div class="card-body">
       <b-col lg="6" class="my-1">
         <b-form-group
-          label="Office(s) Search:"
+          label="Filter:"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
@@ -24,13 +23,14 @@
           </b-input-group>
         </b-form-group>
       </b-col>
-      <div class="overflow-auto" v-if="checkIfAdmin()">
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="rows"
-          :per-page="perPage"
-          aria-controls="my-table"
-        ></b-pagination>
+      <div class="overflow-auto">
+          <b-pagination
+            v-model="currentPage"
+            :total-rows="totalRows"
+            :per-page="perPage"
+            aria-controls="my-table"
+          ></b-pagination>
+
         <b-table
           responsive
           striped
@@ -38,49 +38,52 @@
           :items="activeOffices"
           :fields="fieldsSortable"
           id="my-table"
-          @filtered="onFiltered"
           :filter="filter"
+          @filtered="onFiltered"
           :per-page="perPage"
           :current-page="currentPage"
         >
           <template slot="actions" scope="row">
-            <span class="fa-stack edit-office" @click="editOffice(row.item.officeId)">
+            <span class="fa-stack edit-office" @click="editOffice(row.item.officeId)" v-if="checkIfAdmin()">
               <i class="fas fa-edit fa-2x icon-button"></i>
               <span class="icon-tooltip fa-stack-1x font-weight-bold">Edit</span>
-            </span>&nbsp;&nbsp;
-            <!-- <i class="far fa-trash-alt fa-2x" @click="$emit('delete-office', office.officeId)"></i> -->
-            <span class="fa-stack edit-office" @click="setDelete(row.item)">
+            </span>
+            <span class="fa-stack edit-office" @click="setDelete(row.item)" v-if="checkIfAdmin()">
               <i class="far fa-trash-alt fa-2x icon-button"></i>
               <span class="icon-tooltip fa-stack-1x font-weight-bold">Delete</span>
+            </span>
+            <span class="fa-stack edit-office" @click="openMap(row.item)">
+              <i class="fas fa-map-marker-alt fa-2x icon-button"></i>
+              <span class="icon-tooltip fa-stack-1x font-weight-bold">Map</span>
             </span>
             <span class="fa-stack edit-office" @click="equipment(row.item.officeId)">
               <i class="fas fa-briefcase fa-2x icon-button"></i>
               <span class="icon-tooltip fa-stack-1x font-weight-bold">Equipments</span>
             </span>
+
           </template>
         </b-table>
       </div>
-      <div class="overflow-auto" v-else>
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="rows"
-          :per-page="perPage"
-          aria-controls="my-table"
-        ></b-pagination>
-        <b-table
-          responsive
-          striped
-          hover
-          :items="activeOffices"
-          :fields="activeNoneAdminSortable"
-          id="my-table"
-          @filtered="onFiltered"
-          :filter="filter"
-          :per-page="perPage"
-          :current-page="currentPage"
-        ></b-table>
-      </div>
-      <!-- <button @click="getOffices()">Get Offices Button</button> -->
+<!--      <div class="overflow-auto" v-else>-->
+<!--        <b-pagination-->
+<!--          v-model="currentPage"-->
+<!--          :total-rows="totalRows"-->
+<!--          :per-page="perPage"-->
+<!--          aria-controls="my-table"-->
+<!--        ></b-pagination>-->
+<!--        <b-table-->
+<!--          responsive-->
+<!--          striped-->
+<!--          hover-->
+<!--          :items="activeOffices"-->
+<!--          :fields="activeNoneAdminSortable"-->
+<!--          id="my-table"-->
+<!--          @filtered="onFiltered"-->
+<!--          :filter="filter"-->
+<!--          :per-page="perPage"-->
+<!--          :current-page="currentPage"-->
+<!--        ></b-table>-->
+<!--      </div>-->
 
       <br />
       <br />
@@ -89,7 +92,7 @@
         <h3>Inactive Offices</h3>
         <b-pagination
           v-model="inactiveCurrentPage"
-          :total-rows="inactiveRows"
+          :total-rows="inactiveTotalRows"
           :per-page="perPage"
           aria-controls="inactive-table"
         ></b-pagination>
@@ -100,7 +103,7 @@
           :items="inactiveOffices"
           :fields="adminFieldsSortable"
           id="inactive-table"
-          @filtered="onFiltered"
+          @filtered="onFilteredInactive"
           :filter="filter"
           :per-page="perPage"
           :current-page="inactiveCurrentPage"
@@ -114,7 +117,6 @@
         </b-table>
       </div>
 
-      <!-- YOU ARE SIMPLY NOT VIEWING THE DELETED OFFICES BUT THEY ARE A SOFT DELETE. -->
       <div id="deleteMessage" class="text-center" v-show="deleteOffice">
         Are you sure you want to delete office: {{deleteOfficeName}}?
         <br />
@@ -134,7 +136,10 @@ export default {
     return {
       filter: null,
       perPage: 5,
+      totalRows: 1,
+      inactiveTotalRows: 1,
       currentPage: 1,
+      filterOn: [],
       inactiveCurrentPage: 1,
       loading: false,
       deleteOffice: false,
@@ -144,41 +149,32 @@ export default {
       watch: {
         route: "getOffices"
       },
-      transProps: {
-        // Transition name
-        name: "flip-list"
-      },
-      // Fields with Sortable definition
-      // Note 'isActive' is left out and will not appear in the rendered table
-      activeNoneAdminSortable: {
-        officeName: {
-          label: "Office Name",
-          sortable: true
-        },
-        streetAddress: {
-          label: "Address",
-          sortable: true
-        },
-        city: {
-          label: "City",
-          sortable: true
-        },
-        zip: {
-          label: "Zip Code",
-          sortable: true
-        },
-        state: {
-          label: "State",
-          sortable: true
-        },
-        country: {
-          label: "Country",
-          sortable: true
-        }
-        // actions: {
-        //   label: "Actions"
-        // }
-      },
+      // activeNoneAdminSortable: {
+      //   officeName: {
+      //     label: "Office Name",
+      //     sortable: true
+      //   },
+      //   streetAddress: {
+      //     label: "Address",
+      //     sortable: true
+      //   },
+      //   city: {
+      //     label: "City",
+      //     sortable: true
+      //   },
+      //   zip: {
+      //     label: "Zip Code",
+      //     sortable: true
+      //   },
+      //   state: {
+      //     label: "State",
+      //     sortable: true
+      //   },
+      //   country: {
+      //     label: "Country",
+      //     sortable: true
+      //   }
+      // },
       fieldsSortable: {
         officeName: {
           label: "Office Name",
@@ -257,9 +253,14 @@ export default {
     this.getOffices();
   },
   methods: {
+    openMap(office) {
+      const url = `https://www.google.com/maps/search/${office.officeName} ${office.streetAddress} ${office.city} ${office.state} ${office.zip}`;
+      window.open(url, '_blank')
+    },
     equipment(id) {
+      console.log("equipment method called with OfficeId = " + id);
       this.$router.push({
-        name: "equipment",
+        name: "equipments",
         params: {
           id: id
         }
@@ -271,26 +272,19 @@ export default {
     editOffice(id) {
       this.$router.push({
         name: "editOffice",
-        //path: "office/edit",
         params: {
           id: id
         }
       });
     },
     async getOffices() {
-      //console.log("start");
-      //console.log(officeService.getAllOffices());
       const promise = officeService.getAllOffices();
-      //console.log(promise);
       promise.then(result => {
         this.offices = result;
         this.loading = false;
       });
-      //console.log(this.offices);
-      //console.log("end");
     },
     setDelete(office) {
-      //console.log(id);
       this.deleteOffice = true;
       this.idToDelete = office.officeId;
       this.deleteOfficeName = office.officeName;
@@ -301,36 +295,60 @@ export default {
     async confirmDelete() {
       const promise = officeService.deleteOffice(this.idToDelete);
       console.log(promise);
-      promise.then(res => {
+      promise.then(() => {
         this.clearDelete();
         this.getOffices();
       });
     },
     onFiltered(filteredItems) {
-      // Trigger pagination to update the number of buttons/pages due to filtering
-      console.log(filteredItems);
-      //this.inactiveOffices = filteredItems;
-      this.inactiveCurrentPage = 1;
+      //console.log("filtered Items: " + filteredItems);
+      if (this.filter === "") {
+        console.log("filter is empty");
+        this.totalRows = this.activeOffices.length;
+      } else {
+        this.totalRows = filteredItems.length;
+        this.inactiveCurrentPage = 1;
+        this.currentPage = 1;
+        console.log("total rows: " + this.totalRows);
+      }
+    },
+    onFilteredInactive(filteredItems) {
+      console.log("inactive filter running");
+      if (this.filter === "") {
+        console.log("inactive filter empty");
+        this.inactiveTotalRows = this.inactiveOffices.length;
+      } else {
+        this.inactiveTotalRows = filteredItems.length;
+        this.inactiveCurrentPage = 1;
+      }
     }
   },
   computed: {
     activeOffices() {
       let active = this.offices.filter(office => office.active);
+      this.totalRows = active.length;
       return active;
     },
     inactiveOffices() {
       let inactive = this.offices.filter(office => !office.active);
+      this.inactiveTotalRows = inactive.length;
       return inactive;
     },
-    rows() {
-      return this.activeOffices.length;
-    },
+    // rows() {
+    //   return this.activeOffices.length;
+    // },
     inactiveRows() {
       return this.inactiveOffices.length;
     }
   }
 };
 </script>
+
+<style>
+.pagination .page-item .page-link:focus {
+  background-color: #4285f4 !important;
+}
+</style>
 
 <style scoped>
 .inactive {
@@ -345,7 +363,7 @@ export default {
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   word-wrap: normal;
-  color: inherited;
+  color: inherit;
 }
 
 #deleteMessage {

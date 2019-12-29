@@ -19,31 +19,51 @@
           <label for="username" >Username</label>
           <input type="text" class="form-control" id="username" v-model="user.username"/>
         </div>
+        <div class="form-group" v-if="!this.id">
+          <label for="password">Password</label>
+          <input type="text" class="form-control" id="password" v-model="user.password"/>
+        </div>
         <div class="form-group">
           <label for="firstName">First Name</label>
           <input type="text" class="form-control" id="firstName" v-model="user.firstName" />
         </div>
         <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input type="text" class="form-control" id="lastname" v-model="user.lastName"/>
-        </div>
+          <input type="text" class="form-control" id="lastName" v-model="user.lastName"/>
+        </div>        
         <div class="form-row">
         </div>
         <div class="form-group">
-          <label for="userId">User iD</label>
-          <input type="text" class="form-control" id="userId" v-model="user.userId"/>
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email" v-model="user.email"/>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="text" class="form-control" id="password" v-model="user.password"/>
+
         </div>
-        <div class="form-group">
-          <label for="role" >Role</label>
-          <input type="text" class="form-control" id="role" v-model="user.role"/>
+
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="department">Department</label>
+            <input type="text" class="form-control" id="department" v-model="user.department"/>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="managerId">Manager ID</label>
+            <input type="number" class="form-control" id="managerId" v-model="user.managerId"/>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="role">Role</label>
+            <select class="custom-select" id="role"  v-model="roleId" >
+              <option value="1">Developer</option>
+              <option value="2">Manager</option>
+              <option value="3">Admin</option>
+            </select>
+          </div>
         </div>
+
+
         <div class="form-group">
-          <label for="department">Department</label>
-          <input type="text" class="form-control" id="department" v-model="user.department"/>
+
         </div>
         <div class="form-group text-center">
           <button @click="validateAndSubmit" class="btn btn-lg btn-primary">Save</button>
@@ -59,38 +79,54 @@ export default {
   name: "user",
   data() {
     return {
+      roleId: undefined,
       user: {
         username: '',
+        password: '',
         firstName: '',
         lastName: '',
-        userId: '',
-        password: '',
-        role: '',
+        managerId: '',
+        email: '',
         department: '',
+        role: '',
         active: true
       },
       id: this.$route.params.id,
       errors: []
     };
   },
+  watch: {
+    roleId: function() {
+      switch (this.roleId) {
+        case '1':
+          this.user.role = {
+            "id": 3,
+            "name": "DEVELOPER"
+          };
+          break;
+        case '2':
+          this.user.role = {
+            "id": 2,
+            "name": "MANAGER"
+          };
+          break;
+        case '3':
+          this.user.role = {
+            "id": 1,
+            "name": "ADMIN"
+          };
+          break;
+      }
+    }
+  },
   created() {
-    console.log("Form Created 1", this.id);
-    // console.log('params: ' + this.$router.query.id);
     if(this.id){
-      console.log("Form Created 2");
-      userDataService.getUserByName(this.id).then( result => {
+      userDataService.getUserByUsername(this.id).then(result => {
         this.user = result;
-
       });
     }
   },
-  computed: {
-    // id() {
-    //   return this.$route.query.id;
-    // }
-  },
   methods: {
-
       cancelForm: function(event){
         event.preventDefault();
         this.$router.push({name: "users"});
@@ -109,13 +145,7 @@ export default {
       }
       if (!this.user.lastName) {
         this.errors.push("Enter a last name");
-      }
-      if (!this.user.userId) {
-        this.errors.push("Enter a user id");
-      }
-      if (!this.user.role) {
-        this.errors.push("Enter a role");
-      }
+      }      
       if(!this.user.department){
         this.errors.push("Enter a department");
       }
@@ -135,7 +165,7 @@ export default {
         //When the user input is valid, if there is id in the path
         //then the office is updated in the database and the app is routed to officeList
         else {
-          userDataService.updateUser(this.id, this.office).then(() => {
+          userDataService.updateUser(this.id, this.user).then(() => {
             this.$router.push({name: "users"});
           });
         }

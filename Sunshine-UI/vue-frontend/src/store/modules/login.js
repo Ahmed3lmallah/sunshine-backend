@@ -21,18 +21,9 @@ Vue.use(Vuex)
       if (state.isAuthenticated ) {
           console.log('you are already logged in!')
       } else {
-        const authServiceUrl = "https://sunshine-auth-service.cfapps.io/oauth/token";
-
-        const headerOptions = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': 'Basic ' + btoa( 'ClientId:ClientSecret')
-            }     
-        };
         
-         const content = 'grant_type=password&username=' + username + '&password=' + password;
          return new Promise((resolve, reject) => {
-              authService.postCall(authServiceUrl, content, headerOptions)
+              authService.login(username, password)
               .then(token => {
                       console.log('logged in user: token is ' + token);
                       commit('login', token);                      

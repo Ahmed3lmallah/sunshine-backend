@@ -1,70 +1,36 @@
 <template>
   <div>
     <div class="card card-default">
-      <div class="text-center">
+      <div class="text-center" v-if="checkIfAdmin()">
           <button class="btn btn-primary text-center add-btn" @click="addUser">Add User</button>
       </div>
       <div class="card-body">
-      <b-table responsive striped hover :items="users" :fields="userFields">
+      <b-table responsive striped hover :items="activeUsers" :fields="userFields">
           <template slot="actions" scope="row">
-            <span class="fa-stack edit-office" @click="editUser(row.item.username)">
+            <span class="fa-stack edit-office" @click="editUser(row.item.username)" v-if="checkIfAdmin()">
               <i class="fas fa-edit fa-2x icon-button"></i>
               <span class="icon-tooltip fa-stack-1x font-weight-bold">Edit</span>
             </span>  
             &nbsp;&nbsp;            
-            <span class="fa-stack edit-office" @click="deleteUser(row.item.username)">
+            <span class="fa-stack edit-office" @click="deleteUser(row.item.username)" v-if="checkIfAdmin()">
               <i class="far fa-trash-alt fa-2x icon-button"></i>
               <span class="icon-tooltip fa-stack-1x font-weight-bold">Delete</span>
+            </span>
+            <span class="fa-stack edit-office" @click="viewUser(row.item.username)">
+              <i class="fas fa-eye fa-2x icon-button"></i>
+              <span class="icon-tooltip fa-stack-1x font-weight-bold">View User</span>
             </span>
           </template>
         </b-table>
       </div>
     </div>
-
-<!--
-    <table class="table table-hover table-dark mt-3">
-      <thead>
-        <tr>
-          <th scope="col">Username</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
-          <th scope="col">Role</th>
-          <th scope="col">Department</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in users" :key="user.Id" :user="user" @delete-user="setDelete">
-          <th scope="row">{{user.username}}</th>
-          <td>{{user.firstName}}</td>
-          <td>{{user.lastName}}</td>
-          <td>{{user.roles[0].name}}</td>
-          <td>{{user.department}}</td>
-          <td @click="editUser(user.username)" class="edit-user text-center">
-            <i class="fas fa-pencil-alt"></i>
-          </td>
-          <td @click="deleteUser(user.username)" class="edit-user text-center">
-            <i class="fas fa-trash"></i>
-          </td>
-        </tr>
-        <tr
-          class="inactive"
-          v-for="user in inactiveUsers"
-          :key="user.userId"
-          :user="user"
-          
-        />
-      </tbody>
-    </table>
-    -->
     <div class="text-center" v-show="loading">Loading Users...</div>    
   </div>
 </template>
 
 <script>
 import userService from "../../../service/common/UserDataService.js";
-
+import authService from "../../../service/common/CommonCall";
 import Vue from 'vue';
 import VuejsDialog from 'vuejs-dialog';
 import VuejsDialogMixin from 'vuejs-dialog/dist/vuejs-dialog-mixin.min.js'; // only needed in custom components
@@ -80,7 +46,6 @@ Vue.use(VuejsDialog,{
   cancelText: 'Cancel',
   animation: 'bounce'
 });
-
 
 export default {
   data() {
@@ -139,72 +104,55 @@ export default {
       promise.then(result => {        
         var userList = [];
         result.map(m => 
-          userList.push(
-          {
+          userList.push({
             username:m.username,
             firstName: m.firstName,
             lastName: m.lastName,
-            role: m.roles != null && m.roles.length > 0 ? m.roles[0].name.split("ROLE_")[1] : '',
-            department: m.department
-          }
-          )
+            role: m.role != null ? m.role.name : '',
+            department: m.department,
+            active: m.active
+          })
         );
-        this.users = userList;
+        this.users = userList.slice(4);
         this.loading = false;
       });
     },
-    setDelete(id) {
-      this.deleteUser = true;
-      this.idToDelete = id;
-    },
-    clearDelete() {
-      this.deleteUser = false;
-    },
-    editUser(id) {
-      console.log(id)
+    editUser(username) {
       this.$router.push({
         name: "editUser",
         params: {
-          id: id
+          id: username
         }
       });
     },
-    async deleteUser(username){
+    viewUser(username){
+      alert("Work in progress")
+    },
+    deleteUser(username){
       Vue.dialog
         .confirm('Disable User?')
-        .then(function(dialog) {
-        console.log('Clicked on proceed');
+        .then(async (dialog) => {
+          await userService.deleteUser(username);
+          await this.getUsers();
+          dialog.close && dialog.close()
       })
       .catch(function() {
         console.log('Clicked on cancel');
       });
-
-
-      // const promise = userService.deleteUser(this.username);
-      // promise.then(res => {
-      //   this.clearDelete();
-      //   this.getUsers();
-      // });
     },
-    // async confirmDelete() {
-    //   const promise = userService.deleteUser(this.idToDelete);
-    //   promise.then(res => {
-    //     this.clearDelete();
-    //     this.getUsers();
-    //   });
-    // }
+    checkIfAdmin() {
+      return authService.checkAuthority("ROLE_ADMIN");
+    }
   },
   watch: {
     "route": "getUsers"
   },
   computed: {
     activeUsers() {
-      let active = this.users.filter(user => user.active);
-      return active;
+      return this.users.filter(user => user.active);
     },
     inactiveUsers() {
-      let inactive = this.users.filter(user => !user.active);
-      return inactive;
+      return this.users.filter(user => !user.active);
     }
   }
 };

@@ -9,9 +9,6 @@ import ContentWrapper from "../../components/Layout/ContentWrapper";
 import userListTableVue from "./userListComponents/userListTable.vue";
 import NavBar from "../../../src/components/NavBar/navbar.vue";
 
-
- 
-
 export default {
   components: {
     "user-table": userListTableVue,

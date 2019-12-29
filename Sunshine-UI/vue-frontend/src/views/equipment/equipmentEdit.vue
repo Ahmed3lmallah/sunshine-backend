@@ -5,9 +5,9 @@
         <h1 v-if="id">Update Equipment</h1>
       </div>
       <form class="jumbotron jumbotron-fluid">
-          <div v-if="errors.length">
+          <!-- <div v-if="errors.length">
             <div class="alert alert-warning" v-bind:key="index" v-for="(error, index) in errors">{{error}}</div>
-          </div>
+          </div> -->
         <!---  
         <div class="form-group">
           <button v-on:click="       redirect" type="button" class=" close     text-danger" aria-label="Close">
@@ -21,19 +21,19 @@
           <div class="form-group col-md-6">
              <div class="form-group">
 
-              <div v-if="officeId">
+              <!-- <div v-if="officeId">
                 <label for="officeName" id="officeDetails">Office: {{office.officeId}} - {{office.officeName}}</label>
                 <input type="hidden" class="form-control" id="officeId" v-model="office.officeId" />
-              </div>
+              </div> -->
             
-              <div v-if="!officeId">
+              <!-- <div v-if="!officeId">
                   <label for="officeName" id="officeDetails">Select Office: </label>
                   <select class="" style="width: 40%" name="officeId" id="officeId">
                     <option v-for="officeRow in office" v-bind:key="officeRow.officeId">
                         {{ officeRow.officeName }}
                     </option>
                   </select>
-              </div>      
+              </div>       -->
             </div>
           </div>
         </div>    
@@ -56,18 +56,18 @@ export default {
    name: "office",
     data() {
         return {
-        office: {
-            officeId: '',
-            officeName: '',
-            streetAddress: '',
-            city: '',
-            zip: '',
-            active: true
-        },
-        officeId: this.$route.params.officeId,
+        // office: {
+        //     officeId: '',
+        //     officeName: '',
+        //     streetAddress: '',
+        //     city: '',
+        //     zip: '',
+        //     active: true
+        // },
+        // officeId: this.$route.params.officeId,
         id: this.$route.params.id,              //just added to check id is passing or no
         
-        errors: []
+        // errors: []
         };
     },
     created() {
@@ -76,12 +76,12 @@ export default {
             this.office = result;
         });
         }        
-        if(!this.officeId){
-        //EquipmentDataService.getEquipmentsByOfficeId(this.officeId).then( result => {
-        OfficeDataService.getAllOffices().then(result => {  
-            this.office = result;
-        });    
-        }
+        // if(!this.officeId){
+        // //EquipmentDataService.getEquipmentsByOfficeId(this.officeId).then( result => {
+        // OfficeDataService.getAllOffices().then(result => {  
+        //     this.office = result;
+        // });    
+        // }
     },
   components: {
         "equipment-edit-form": equipmentEditFormVue,

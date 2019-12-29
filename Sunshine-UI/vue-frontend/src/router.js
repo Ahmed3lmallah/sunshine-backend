@@ -12,10 +12,10 @@ const maingView = () => import ('@/views/landing/main.vue')
 const loginView = () => import ('@/views/login/login.vue')
 const officeListView = () => import ('@/views/office/officeList.vue')
 const officeEditView = () => import ('@/views/office/officeEdit.vue')
-const equipmentListView = () => import ('@/views/equipment/equipmentList.vue')
+const equipmentByOfficeList = () => import ('@/views/equipment/equipmentListByOffice.vue')
 const equipmentEditView = () => import ('@/views/equipment/equipmentEdit.vue')
 const equipmentDetailView = () => import ('@/views/equipment/equipmentDetail.vue')
-const newEquipmentList = () => import ('@/views/equipment/newEquipmentList.vue')
+const equipmentList = () => import ('@/views/equipment/equipmentList.vue')
 const userListView = () => import ('@/views/user/userList.vue')
 const userEditView = () => import ('@/views/user/userEdit.vue')
 const dashboard1 = () => import ('@/views/report/DashboardV1.vue')
@@ -68,15 +68,15 @@ export default new Router({
             }
         },
         {
-            path: '/equipment/:id',
-            name: 'equipment',
-            component: equipmentListView
+            path: '/equipments/:id',
+            name: 'equipments',
+            component: equipmentList
             
         },
         {
             path: '/equipments',
-            name: 'equipments',
-            component: newEquipmentList
+            name: 'allEquipments',
+            component: equipmentList
         },
         {
             path: '/equipment/new',
@@ -89,7 +89,7 @@ export default new Router({
             component: equipmentEditView
         },
         {
-            path: '/equipment/details',
+            path: '/equipment/details/:id',
             name: 'equipmentDetail',
             component: equipmentDetailView
         },

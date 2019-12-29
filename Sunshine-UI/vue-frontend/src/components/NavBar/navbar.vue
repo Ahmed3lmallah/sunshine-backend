@@ -69,7 +69,7 @@
         this.$router.push({name: "offices"})
       },
       goToEquipmentList(){
-      this.$router.push({name: "equipments"})
+      this.$router.push({name: "allEquipments"})
       },
       goToUserList(){
         this.$router.push({path: "users"})
@@ -77,10 +77,14 @@
       goToReport(){
         this.$router.push({path: "report"})
       },
+      
       logout() {
-        sessionStorage.clear();
-        this.$router.push({name: "login"});
-      }
+      this.$store.dispatch('login/logout')
+           .then((response) => {
+             console.log("Got logout response " + response);
+             this.$router.push({name: "login"})
+       })
+      } 
 
     }
   };
