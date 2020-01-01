@@ -6,32 +6,37 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name="office")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Office {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="office_id")
     private Long officeId;
-    @Column(nullable = false)
+    @Column(name = "office_name", nullable = false)
     private String officeName;
-    @Column(nullable = false)
+    @Column(name = "street_address", nullable = false)
     private String streetAddress;
-    @Column(nullable = false)
+    @Column(name = "country", nullable = false)
     private String country;
-    @Column(nullable = false)
+    @Column(name = "city", nullable = false)
     private String city;
-    @Column(nullable = false)
+    @Column(name = "state", nullable = false)
     private String state;
-    @Column (columnDefinition="tinyint(1) default 1")
+    @Column (name = "active", columnDefinition="tinyint(1) default 1")
     private boolean active = true;
-    @Column(nullable = false)
+    @Column(name = "manager_id", nullable = false)
     private Long managerId;
 
     /*
     Optional
      */
+    @Column(name ="zip")
     private String zip;
+    @Column(name ="website")
     private String website;
+    @Column(name ="fax")
     private String fax;
 
     public Long getManagerId() {
